@@ -1,4 +1,4 @@
-#include "matriz.h"
+#include "include/matriz.h"
 #include <cmath>
 #include <iostream>
 using namespace std;
