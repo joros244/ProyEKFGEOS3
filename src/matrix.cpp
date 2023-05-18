@@ -1,9 +1,8 @@
-#include "matriz.h"
-#include <cmath>
+#include "../include/matrix.h"
 #include <iostream>
 using namespace std;
 
-void transpuesta(double **mat, double **res, int f, int c) {
+void transpose(double **mat, double **res, int f, int c) {
   for (int i = 0; i < f; i++) {
     for (int j = 0; j < c; j++) {
       res[j][i] = mat[i][j];
@@ -14,7 +13,7 @@ void transpuesta(double **mat, double **res, int f, int c) {
 void mult(double **mat1, int f1, int c1, double **mat2, int f2, int c2,
           double **res) {
   if (c1 != f2) {
-    cout << "Matrices incompatibles" << endl;
+    cout << "Incompatible matrices" << endl;
     return;
   }
   for (int i = 0; i < f1; i++) {
@@ -26,10 +25,11 @@ void mult(double **mat1, int f1, int c1, double **mat2, int f2, int c2,
     }
   }
 }
+
 void mult3(double **mat1, int f1, int c1, double **mat2, int f2, int c2,
           double **mat3, int f3, int c3,double **res) {
   if (c1 != f2 || c2!=f3) {
-    cout << "Matrices incompatibles" << endl;
+    cout << "Incompatible matrices" << endl;
     return;
   }
   
@@ -44,11 +44,4 @@ void mult3(double **mat1, int f1, int c1, double **mat2, int f2, int c2,
     delete[] resP[i];
   }
   delete[] resP;
-}
-void R_x(double a, double res[3][3]){
-  double C = cos(a);
-  double S = sin(a);
-  res[0][0] = 1.0; res[0][1] = 0.0; res[0][2] = 0.0;
-  res[1][0] = 0.0; res[1][1] = C; res[1][2] = S;
-  res[2][0] = 0.0; res[2][1] = -1.0*S; res[2][2] = C;
 }
