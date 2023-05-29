@@ -1,6 +1,6 @@
 /**
  * Solves the problem of orbit determination using three optical sightings.
- * 
+ *
  * @param az1    Azimuth at t1 [rad]
  * @param az2    Azimuth at t2 [rad]
  * @param az3    Azimuth at t3 [rad]
@@ -16,7 +16,6 @@
  * @param r      Pointer to the output ijk position vector at t2 [m]
  * @param v      Pointer to the output ijk velocity vector at t2 [m/s]
  */
-void anglesdr(double az1, double az2, double az3, double el1, double el2, 
-		double el3, double Mjd1, double Mjd2, double Mjd3, 
-		double  rsite1, double rsite2, double rsite3, double *r, 
-		double *v );
+void anglesdr(double az1, double az2, double az3, double el1, double el2,
+              double el3, double Mjd1, double Mjd2, double Mjd3, double *rsite1,
+              double *rsite2, double *rsite3, double *r, double *v);
