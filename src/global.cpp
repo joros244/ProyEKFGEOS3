@@ -4,6 +4,9 @@
 using namespace std;
 
 double **eopdata;
+double **Cnm;
+double **Snm;
+Aux AuxParam;
 
 void loadEOP(const char *path) {
   FILE *fp;
@@ -41,4 +44,40 @@ void deleteEOP() {
     delete[] eopdata[i];
   }
   delete[] eopdata;
+}
+
+void loadCS(const char *path) {
+  FILE *fp;
+  fp = fopen(path, "r");
+
+  if (fp == NULL) {
+    cout << "Fail open egm.txt file" << endl;
+    exit(EXIT_FAILURE);
+  }
+  Cnm = new double *[361];
+  Snm = new double *[361];
+
+  for (int k = 0; k < 361; k++) {
+    Cnm[k] = new double[361];
+    Snm[k] = new double[361];
+  }
+
+  int f, c;
+  double aux1, aux2;
+
+  for (int n = 0; n <= 360; n++) {
+    for (int m = 0; m <= n; m++) {
+      fscanf(fp, "%d%d%lf%lf%lf%lf", &f, &c, &Cnm[n][m], &Snm[n][m], &aux1,
+             &aux2);
+    }
+  }
+  fclose(fp);
+}
+void deleteCS() {
+  for (int i = 0; i < 361; i++) {
+    delete[] Cnm[i];
+    delete[] Snm[i];
+  }
+  delete[] Cnm;
+  delete[] Snm;
 }

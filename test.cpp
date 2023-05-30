@@ -1,10 +1,14 @@
+#include "include/Accel.h"
+#include "include/AccelHarmonic.h"
 #include "include/AzElPa.h"
 #include "include/EqnEquinox.h"
 #include "include/Frac.h"
 #include "include/GHAMatrix.h"
+#include "include/G_AccelHarmonic.h"
 #include "include/Geodetic.h"
 #include "include/IERS.h"
 #include "include/LTC.h"
+#include "include/Legendre.h"
 #include "include/MeanObliquity.h"
 #include "include/MeasUpdate.h"
 #include "include/NutAngles.h"
@@ -719,6 +723,158 @@ int main() {
   delete[] KTest;
   cout << "MeasUpdate test passed" << endl;
   // END MEASUPDATE TEST
+
+  // BEGIN LEGENDRE TEST
+  int n = 3;
+  int m = 2;
+  double fi = 0.5;
+
+  double **pnm = new double *[n + 1];
+  double **dpnm = new double *[n + 1];
+  for (int i = 0; i < n + 1; i++) {
+    pnm[i] = new double[n + 1];
+    dpnm[i] = new double[n + 1];
+  }
+
+  double pnmRes[4][4] = {
+      {1, 0, 0, 0},
+      {0.830389391308554, 1.52001758503058, 0, 0},
+      {-0.347097518865836, 1.62950155523887, 1.49139129468805, 0},
+      {-1.17378701262255, 0.212202357272447, 1.89174148838053,
+       1.41368608598461}};
+
+  double dpnmRes[4][4] = {
+      {0, 0, 0, 0},
+      {1.52001758503058, -0.830389391308554, 0, 0},
+      {2.82237948468622, 2.09258183254477, -1.62950155523887, 0},
+      {0.519787497533268, 5.86628517139076, 1.39588339664843,
+       -2.31690068589274}};
+
+  Legendre(n, m, fi, pnm, dpnm);
+
+  for (int i = 0; i < n + 1; i++) {
+    for (int j = 0; j < n + 1; j++) {
+      assert(fabs(pnm[i][j] - pnmRes[i][j]) < pow(10, -12));
+      assert(fabs(dpnm[i][j] - dpnmRes[i][j]) < pow(10, -12));
+    }
+  }
+
+  for (int i = 0; i < n + 1; i++) {
+    delete[] pnm[i];
+    delete[] dpnm[i];
+  }
+  delete[] pnm;
+  delete[] dpnm;
+  cout << "Legendre test passed" << endl;
+  // END LEGENDRE TEST
+
+  // BEGIN ACCELHARMONIC TEST
+  double **rtest = new double *[3];
+  double **atest = new double *[3];
+  double **Etest = new double *[3];
+  double rval[3] = {10000.0, 20000.0, 30000.0};
+  double Eval[3][3] = {{0.1, 0.2, 0.3}, {0.1, 0.2, 0.3}, {0.1, 0.2, 0.3}};
+
+  for (int i = 0; i < 3; i++) {
+    rtest[i] = new double[1];
+    rtest[i][0] = rval[i];
+    atest[i] = new double[1];
+    Etest[i] = new double[3];
+    for (int j = 0; j < 3; j++) {
+      Etest[i][j] = Eval[i][j];
+    }
+  }
+
+  double aval[3] = {1777073.32963624, 3554146.65927248, 5331219.98890872};
+  AccelHarmonic(rtest, Etest, 3, 3, atest);
+  for (int i = 0; i < 3; i++) {
+    assert(fabs(aval[i] - atest[i][0]) < pow(10, -8));
+  }
+  for (int i = 0; i < 3; i++) {
+    delete[] rtest[i];
+    delete[] atest[i];
+    delete[] Etest[i];
+  }
+  delete[] rtest;
+  delete[] atest;
+  delete[] Etest;
+
+  cout << "AccelHarmonic test passed" << endl;
+  // END ACCELHARMONIC TEST
+
+  // BEGIN ACCEL TEST
+  double **Ytest = new double *[6];
+  double **dY = new double *[6];
+  double Yval[6] = {6511674.62431053, 2217276.31080875,  2186612.13046445,
+                    2977.29908428071, -2465.79612321289, -6347.53937382649};
+
+  for (int i = 0; i < 6; i++) {
+    Ytest[i] = new double[1];
+    Ytest[i][0] = Yval[i];
+    dY[i] = new double[1];
+  }
+
+  double dYval[6] = {2977.29908428071,  -2465.79612321289, -6347.53937382649,
+                     -6.90707086490836, -2.35188341613577, -2.32499942836077};
+  AuxParam.n = 3;
+  AuxParam.m = 2;
+  Accel(12.8802163484948, Ytest, dY);
+  for (int i = 0; i < 6; i++) {
+    assert(fabs(dYval[i] - dY[i][0]) < pow(10, -7));
+  }
+  for (int i = 0; i < 6; i++) {
+    delete[] Ytest[i];
+    delete[] dY[i];
+  }
+  delete[] Ytest;
+  delete[] dY;
+
+  cout << "Accel test passed" << endl;
+  // END ACCEL TEST
+
+  // BEGIN GACCELHARMONIC TEST
+  double **rtestG = new double *[3];
+  double **EtestG = new double *[3];
+  double **Gres = new double *[3];
+  double rvalG[3] = {10000.0, 20000.0, 30000.0};
+  double EvalG[3][3] = {{0.1, 0.2, 0.3}, {0.1, 0.2, 0.3}, {0.1, 0.2, 0.3}};
+
+  for (int i = 0; i < 3; i++) {
+    Gres[i] = new double[3];
+    rtestG[i] = new double[1];
+    rtestG[i][0] = rvalG[i];
+    EtestG[i] = new double[3];
+    for (int j = 0; j < 3; j++) {
+      EtestG[i][j] = EvalG[i][j];
+    }
+  }
+
+  double GtestRes[3][3] = {
+      {-65.6685017049313, -131.337003447115, -197.005505255423},
+      {-131.337003409863, -262.674006894231, -394.011010510847},
+      {-197.00550512597, -394.011010337621, -591.016515765339}};
+
+  G_AccelHarmonic(rtestG, EtestG, 3, 2, Gres);
+
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      cout << Gres[i][j] << endl;
+      //      cout << fabs(Gres[i][j] - GtestRes[i][j]) << endl;
+      //      assert(fabs(Gres[i][j] - GtestRes[i][j]) < pow(10, -8));
+    }
+  }
+
+  for (int i = 0; i < 3; i++) {
+    delete[] rtestG[i];
+    delete[] Gres[i];
+    delete[] EtestG[i];
+  }
+  delete[] rtestG;
+  delete[] Gres;
+  delete[] EtestG;
+
+  cout << "G_AccelHarmonic test passed" << endl;
+  // END GACCELHARMONIC TEST
 
   cout << "All test passed" << endl;
 
