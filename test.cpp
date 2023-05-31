@@ -20,6 +20,7 @@
 #include "include/R_y.h"
 #include "include/R_z.h"
 #include "include/TimeUpdate.h"
+#include "include/VarEqn.h"
 #include "include/anglesdr.h"
 #include "include/doubler.h"
 #include "include/gast.h"
@@ -539,43 +540,42 @@ int main() {
   // END DOUBLER TEST
 
   // BEGIN ANGLESDR TEST
-  // double *rAngTest = new double[3];
-  // double *vAngTest = new double[3];
-  // double *rsite1Test = new double[3];
-  // rsite1Test[0] = -5512568.44501153;
-  // rsite1Test[1] = -2196994.68777797;
-  // rsite1Test[2] = 2330805.22194045;
-  // double *rsite2Test = new double[3];
-  // rsite2Test[0] = -5512568.44501153;
-  // rsite2Test[1] = -2196994.68777797;
-  // rsite2Test[2] = 2330805.22194045;
+  double *rAngTest = new double[3];
+  double *vAngTest = new double[3];
+  double *rsite1Test = new double[3];
+  rsite1Test[0] = -5512568.44501153;
+  rsite1Test[1] = -2196994.68777797;
+  rsite1Test[2] = 2330805.22194045;
+  double *rsite2Test = new double[3];
+  rsite2Test[0] = -5512568.44501153;
+  rsite2Test[1] = -2196994.68777797;
+  rsite2Test[2] = 2330805.22194045;
 
-  // double *rsite3Test = new double[3];
-  // rsite3Test[0] = -5512568.44501153;
-  // rsite3Test[1] = -2196994.68777797;
-  // rsite3Test[2] = 2330805.22194045;
+  double *rsite3Test = new double[3];
+  rsite3Test[0] = -5512568.44501153;
+  rsite3Test[1] = -2196994.68777797;
+  rsite3Test[2] = 2330805.22194045;
 
-  // anglesdr(1.0559084894933, 1.36310214580757, 1.97615602688759,
-  //          0.282624656433946, 0.453434794338875, 0.586427138011591,
-  //          49746.1101504629, 49746.1112847221, 49746.1125347223, rsite1Test,
-  //          rsite2Test, rsite3Test, rAngTest, vAngTest);
+  anglesdr(1.0559084894933, 1.36310214580757, 1.97615602688759,
+           0.282624656433946, 0.453434794338875, 0.586427138011591,
+           49746.1101504629, 49746.1112847221, 49746.1125347223, rsite1Test,
+           rsite2Test, rsite3Test, rAngTest, vAngTest);
 
-  // double rResTest[3] = {6147304.28873136, 2498216.09757119,
-  // 2872808.05359544}; double vResTest[3] = {3764.62899474253,
-  // -2217.84494072807, -6141.47100738888};
+  double rResTest[3] = {6147304.28873136, 2498216.09757119, 2872808.05359544};
+  double vResTest[3] = {3764.62899474253, -2217.84494072807, -6141.47100738888};
 
-  // for (int i = 0; i < 3; i++) {
-  //   // assert(fabs(rAngTest[i] - rResTest[i]) < pow(10, -5));
-  //   cout << "r: " << fabs(rAngTest[i] - rResTest[i]) << endl;
-  //   cout << "v: " << fabs(vAngTest[i] - vResTest[i]) << endl;
-  //   // assert(fabs(vAngTest[i] - vResTest[i]) < pow(10, -5));
-  // }
+  for (int i = 0; i < 3; i++) {
+    // assert(fabs(rAngTest[i] - rResTest[i]) < pow(10, -5));
+    cout << "r: " << fabs(rAngTest[i] - rResTest[i]) << endl;
+    cout << "v: " << fabs(vAngTest[i] - vResTest[i]) << endl;
+    // assert(fabs(vAngTest[i] - vResTest[i]) < pow(10, -5));
+  }
 
-  // delete[] rAngTest;
-  // delete[] vAngTest;
-  // delete[] rsite1Test;
-  // delete[] rsite2Test;
-  // delete[] rsite3Test;
+  delete[] rAngTest;
+  delete[] vAngTest;
+  delete[] rsite1Test;
+  delete[] rsite2Test;
+  delete[] rsite3Test;
   cout << "Anglesdr test FAILED" << endl;
   // END ANGLESDR TEST
 
@@ -858,9 +858,7 @@ int main() {
 
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      cout << Gres[i][j] << endl;
-      //      cout << fabs(Gres[i][j] - GtestRes[i][j]) << endl;
-      //      assert(fabs(Gres[i][j] - GtestRes[i][j]) < pow(10, -8));
+      assert(fabs(Gres[i][j] - GtestRes[i][j]) < pow(10, -7));
     }
   }
 
@@ -875,6 +873,64 @@ int main() {
 
   cout << "G_AccelHarmonic test passed" << endl;
   // END GACCELHARMONIC TEST
+
+  // BEGIN VAREQN TEST
+  AuxParam.n = 10;
+  AuxParam.m = 10;
+  double **yPhi = new double *[42];
+  double **yPhip = new double *[42];
+  double YPhiVal[42] = {
+      6511673.5786379,      2217276.32807621,      2186612.13647149,
+      2977.26486493192,     -2465.7953552642,      -6347.52489072198,
+      1.00012516404491,     7.35544100353754e-05,  7.39468381604866e-05,
+      1.95022611097145e-05, 1.14060607467393e-05,  1.14241559721354e-05,
+      7.35544364827778e-05, 0.999937396019315,     2.55186732541785e-05,
+      1.14060709022523e-05, -9.73915881882761e-06, 3.92930620021403e-06,
+      7.3946893476555e-05,  2.55186831687465e-05,  0.99993744769472,
+      1.14241774234504e-05, 3.92931008041802e-06,  -9.76069272760163e-06,
+      12.8807708419529,     0.000315374656770875,  0.000315876559106252,
+      1.0001260207355,      7.33561736240834e-05,  7.31968618751914e-05,
+      0.000315374713504755, 12.8799623271531,      0.000108642143308896,
+      7.33561999039253e-05, 0.999937158035963,     2.50909739053537e-05,
+      0.000315876676130023, 0.000108642163978508,  12.8799617275722,
+      7.31969171196746e-05, 2.50909838370217e-05,  0.999936828987584};
+  double YPhipRes[42] = {
+      2977.26486493192,     -2465.7953552642,      -6347.52489072198,
+      -6.90708762945389,    -2.35182013922689,     -2.32500724768885,
+      1.95022611097145e-05, 1.14060607467393e-05,  1.14241559721354e-05,
+      1.52976851466536e-06, 8.81975196853505e-07,  8.73381247549669e-07,
+      1.14060709022523e-05, -9.73915881882761e-06, 3.92930620021403e-06,
+      8.8197833760193e-07,  -7.60354476225078e-07, 2.97365277667983e-07,
+      1.14241774234504e-05, 3.92931008041802e-06,  -9.76069272760163e-06,
+      8.73387904429593e-07, 2.97366485751797e-07,  -7.68852832336979e-07,
+      1.0001260207355,      7.33561736240834e-05,  7.31968618751914e-05,
+      1.97010185124543e-05, 1.13593899703395e-05,  1.12487173569674e-05,
+      7.33561999039253e-05, 0.999937158035963,     2.50909739053537e-05,
+      1.13594000925129e-05, -9.79457299676201e-06, 3.8299105990748e-06,
+      7.31969171196746e-05, 2.50909838370217e-05,  0.999936828987584,
+      1.12487387500997e-05, 3.8299144678088e-06,   -9.90403592917128e-06};
+
+  for (int i = 0; i < 42; i++) {
+    yPhi[i] = new double[1];
+    yPhi[i][0] = YPhiVal[i];
+    yPhip[i] = new double[1];
+  }
+
+  VarEqn(12.880231625564, yPhi, yPhip);
+
+  for (int i = 0; i < 42; i++) {
+    assert(fabs(yPhip[i][0] - YPhipRes[i]) < pow(10, -7));
+  }
+
+  for (int i = 0; i < 42; i++) {
+    delete[] yPhip[i];
+    delete[] yPhi[i];
+  }
+  delete[] yPhi;
+  delete[] yPhip;
+
+  cout << "VarEqn test passed" << endl;
+  // END VAREQN TEST
 
   cout << "All test passed" << endl;
 

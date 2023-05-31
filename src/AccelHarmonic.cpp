@@ -5,7 +5,6 @@
 #include "../include/matrix.h"
 #include "../include/vector.h"
 #include <cmath>
-#include <iostream>
 #include <string>
 using namespace std;
 

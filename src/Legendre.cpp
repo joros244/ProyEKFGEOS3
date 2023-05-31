@@ -1,7 +1,5 @@
 #include "../include/Legendre.h"
 #include <cmath>
-#include <iostream>
-using namespace std;
 
 void Legendre(int n, int m, double fi, double **pnm, double **dpnm) {
 

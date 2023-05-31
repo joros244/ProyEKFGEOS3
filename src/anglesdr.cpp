@@ -68,11 +68,11 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   double **los33 = new double *[3];
 
   for (int i = 0; i < 3; i++) {
-    los11[i] = new double;
+    los11[i] = new double[1];
     los11[i][0] = los1[i];
-    los22[i] = new double;
+    los22[i] = new double[1];
     los22[i][0] = los2[i];
-    los33[i] = new double;
+    los33[i] = new double[1];
     los33[i][0] = los3[i];
   }
 
@@ -81,9 +81,9 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   double **los33R = new double *[3];
 
   for (int i = 0; i < 3; i++) {
-    los11R[i] = new double;
-    los22R[i] = new double;
-    los33R[i] = new double;
+    los11R[i] = new double[1];
+    los22R[i] = new double[1];
+    los33R[i] = new double[1];
   }
 
   mult(mat1T, 3, 3, los11, 3, 1, los11R);
@@ -133,9 +133,9 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
 
   for (int i = 0; i < 3; i++) {
     ET[i] = new double[3];
-    rsite1M[i] = new double;
+    rsite1M[i] = new double[1];
     rsite1M[i][0] = rsite1[i];
-    rsite1R[i] = new double;
+    rsite1R[i] = new double[1];
   }
   transpose(E, ET, 3, 3);
   mult(ET, 3, 3, los11R, 3, 1, los11);
@@ -165,9 +165,9 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   double **rsite2R = new double *[3];
 
   for (int i = 0; i < 3; i++) {
-    rsite2M[i] = new double;
+    rsite2M[i] = new double[1];
     rsite2M[i][0] = rsite2[i];
-    rsite2R[i] = new double;
+    rsite2R[i] = new double[1];
   }
   mult(ET, 3, 3, rsite2M, 3, 1, rsite2R);
 
@@ -195,9 +195,9 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   double **rsite3R = new double *[3];
 
   for (int i = 0; i < 3; i++) {
-    rsite3M[i] = new double;
+    rsite3M[i] = new double[1];
     rsite3M[i][0] = rsite3[i];
-    rsite3R[i] = new double;
+    rsite3R[i] = new double[1];
   }
   mult(ET, 3, 3, rsite3M, 3, 1, rsite3R);
 
@@ -324,6 +324,8 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
     delete[] rsite1R[i];
     delete[] rsite2M[i];
     delete[] rsite2R[i];
+    delete[] rsite3M[i];
+    delete[] rsite3R[i];
   }
   delete[] mat1;
   delete[] mat2;
@@ -346,6 +348,8 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   delete[] rsite1R;
   delete[] rsite2M;
   delete[] rsite2R;
+  delete[] rsite3M;
+  delete[] rsite3R;
   delete[] los1V;
   delete[] los2V;
   delete[] los3V;

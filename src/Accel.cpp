@@ -9,7 +9,6 @@
 #include "../include/global.h"
 #include "../include/matrix.h"
 #include "../include/timediff.h"
-#include <iostream>
 #include <string>
 using namespace std;
 

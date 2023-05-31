@@ -1,7 +1,5 @@
 #include "../include/G_AccelHarmonic.h"
 #include "../include/AccelHarmonic.h"
-#include <iostream>
-using namespace std;
 void G_AccelHarmonic(double **r, double **U, int n_max, int m_max, double **G) {
 
   double d = 1.0; // Position increment [m]
@@ -22,6 +20,9 @@ void G_AccelHarmonic(double **r, double **U, int n_max, int m_max, double **G) {
 
   // Gradient
   for (int i = 0; i < 3; i++) {
+    for (int w = 0; w < 3; w++) {
+      dr[w][0] = 0.0;
+    }
     // Set offset in i-th component of the position vector
     dr[i][0] = d;
     // Acceleration difference

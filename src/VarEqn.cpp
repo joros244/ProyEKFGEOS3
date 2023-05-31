@@ -1,4 +1,7 @@
+#include "../include/VarEqn.h"
+#include "../include/AccelHarmonic.h"
 #include "../include/GHAMatrix.h"
+#include "../include/G_AccelHarmonic.h"
 #include "../include/IERS.h"
 #include "../include/NutMatrix.h"
 #include "../include/PoleMatrix.h"
@@ -10,12 +13,10 @@
 #include <string>
 using namespace std;
 
-void VarEqn(double x, double *yPhi, double **yPhip) {
-
-  // global AuxParam eopdata
+void VarEqn(double x, double **yPhi, double **yPhip) {
 
   double UT1_UTC, TAI_UTC, x_pole, y_pole;
-  string path = "../include/eop19620101.txt";
+  string path = "data/eop19620101.txt";
   loadEOP(path.c_str());
   IERS(eopdata, AuxParam.Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
   double UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC;
@@ -51,23 +52,31 @@ void VarEqn(double x, double *yPhi, double **yPhip) {
     Phi[i] = new double[6];
   }
 
-  double *r = new double[3];
+  double **r = new double *[3];
   double *v = new double[3];
   for (int i = 0; i < 3; i++) {
-    r[i] = yPhi[i];
-    v[i] = yPhi[i + 3];
+    r[i] = new double[1];
+    r[i][0] = yPhi[i][0];
+    v[i] = yPhi[i + 3][0];
   }
 
   // State transition matrix
   for (int j = 0; j < 6; j++) {
     for (int i = 0; i < 6; i++) {
-      Phi[i][j] = yPhi[6 * (j + 1) + i];
+      Phi[i][j] = yPhi[6 * (j + 1) + i][0];
     }
   }
 
   // Acceleration and gradient
-  //  a = AccelHarmonic(r, E, AuxParam.n, AuxParam.m);
-  // G = G_AccelHarmonic(r, E, AuxParam.n, AuxParam.m);
+  double **a = new double *[3];
+  double **G = new double *[3];
+  for (int i = 0; i < 3; i++) {
+    a[i] = new double[1];
+    G[i] = new double[3];
+  }
+
+  AccelHarmonic(r, E, AuxParam.n, AuxParam.m, a);
+  G_AccelHarmonic(r, E, AuxParam.n, AuxParam.m, G);
 
   // Time derivative of state transition matrix
   double **dfdy = new double *[6];
@@ -79,8 +88,8 @@ void VarEqn(double x, double *yPhi, double **yPhip) {
 
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      dfdy[i][j] = 0.0; // dv/dr(i,j)
-      // dfdy[i + 3][j] = G[i][j]; // da/dr(i,j)
+      dfdy[i][j] = 0.0;         // dv/dr(i,j)
+      dfdy[i + 3][j] = G[i][j]; // da/dr(i,j)
       if (i == j) {
         dfdy[i][j + 3] = 1.0;
       } else {
@@ -94,8 +103,8 @@ void VarEqn(double x, double *yPhi, double **yPhip) {
 
   // Derivative of combined state vector and state transition matrix
   for (int i = 0; i < 3; i++) {
-    yPhip[i][0] = v[i]; // dr/dt(i)
-    // yPhip[i + 3] = a[i]; // dv/dt(i)
+    yPhip[i][0] = v[i];        // dr/dt(i)
+    yPhip[i + 3][0] = a[i][0]; // dv/dt(i)
   }
 
   for (int i = 0; i < 6; i++) {
@@ -111,6 +120,9 @@ void VarEqn(double x, double *yPhi, double **yPhip) {
     delete[] Pole[i];
     delete[] E[i];
     delete[] GhaMat[i];
+    delete[] r[i];
+    delete[] a[i];
+    delete[] G[i];
   }
   for (int i = 0; i < 6; i++) {
     delete[] Phi[i];
@@ -128,4 +140,6 @@ void VarEqn(double x, double *yPhi, double **yPhip) {
   delete[] r;
   delete[] dfdy;
   delete[] v;
+  delete[] a;
+  delete[] G;
 }
