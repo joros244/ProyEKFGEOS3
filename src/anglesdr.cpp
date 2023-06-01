@@ -8,19 +8,15 @@
 #include "../include/PrecMatrix.h"
 #include "../include/SAT_Const.h"
 #include "../include/doubler.h"
-#include "../include/global.h"
 #include "../include/matrix.h"
 #include "../include/timediff.h"
 #include "../include/vector.h"
 #include <cmath>
-#include <cstring>
-#include <iostream>
 
-using namespace std;
-
-void anglesdr(double az1, double az2, double az3, double el1, double el2,
-              double el3, double Mjd1, double Mjd2, double Mjd3, double *rsite1,
-              double *rsite2, double *rsite3, double *r2, double *v2) {
+void anglesdr(double **eop, double az1, double az2, double az3, double el1,
+              double el2, double el3, double Mjd1, double Mjd2, double Mjd3,
+              double *rsite1, double *rsite2, double *rsite3, double *r2,
+              double *v2) {
 
   double magr1in = 1.1 * R_Earth;
   double magr2in = 1.11 * R_Earth;
@@ -35,24 +31,14 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
 
   double lon1, lat1, h1;
   Geodetic(rsite1, lon1, lat1, h1);
-  double lon2, lat2, h2;
-  Geodetic(rsite2, lon2, lat2, h2);
-  double lon3, lat3, h3;
-  Geodetic(rsite3, lon3, lat3, h3);
 
   double **mat1 = new double *[3];
-  double **mat2 = new double *[3];
-  double **mat3 = new double *[3];
 
   for (int i = 0; i < 3; i++) {
     mat1[i] = new double[3];
-    mat2[i] = new double[3];
-    mat3[i] = new double[3];
   }
 
   LTC(lon1, lat1, mat1);
-  LTC(lon2, lat2, mat2);
-  LTC(lon3, lat3, mat3);
 
   // body-fixed system
 
@@ -92,10 +78,8 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
 
   //// mean of date system (J2000)
   double Mjd_UTC = Mjd1;
-  string path = "data/eop19620101.txt";
-  loadEOP(path.c_str());
   double UT1_UTC, TAI_UTC, x_pole, y_pole;
-  IERS(eopdata, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
+  IERS(eop, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
   double UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC;
   timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
   double Mjd_TT = Mjd_UTC + TT_UTC / 86400;
@@ -139,14 +123,16 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   }
   transpose(E, ET, 3, 3);
   mult(ET, 3, 3, los11R, 3, 1, los11);
+
   mult(ET, 3, 3, rsite1M, 3, 1, rsite1R);
 
   for (int i = 0; i < 3; i++) {
     rsite1[i] = rsite1R[i][0];
   }
+
   /////////////////
   Mjd_UTC = Mjd2;
-  IERS(eopdata, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
+  IERS(eop, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
   timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
   Mjd_TT = Mjd_UTC + TT_UTC / 86400;
   Mjd_UT1 = Mjd_TT + (UT1_UTC - TT_UTC) / 86400.0;
@@ -176,7 +162,7 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   }
   ///////////////////
   Mjd_UTC = Mjd3;
-  IERS(eopdata, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
+  IERS(eop, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
   timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
   Mjd_TT = Mjd_UTC + TT_UTC / 86400;
   Mjd_UT1 = Mjd_TT + (UT1_UTC - TT_UTC) / 86400.0;
@@ -223,18 +209,6 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   double cc1 = 2.0 * dot(los1V, 3, rsite1, 3);
   double cc2 = 2.0 * dot(los2V, 3, rsite2, 3);
   int ktr = 0;
-
-  // for (int i = 0; i < 3; i++) {
-  //   cout << "r1: " << rsite1[i] << endl;
-  //   cout << "r2: " << rsite2[i] << endl;
-  //   cout << "r3: " << rsite3[i] << endl;
-  // }
-
-  // for (int i = 0; i < 3; i++) {
-  //   cout << "l1: " << los1V[i] << endl;
-  //   cout << "l2: " << los2V[i] << endl;
-  //   cout << "l3: " << los3V[i] << endl;
-  // }
 
   double f, a, magr2, deltae32, g, magr1o, deltar1, q2, f1delr1, f2delr1,
       pf1pr1, pf2pr1, magr2o, deltar2, q3, f1delr2, f2delr2, pf1pr2, pf2pr2,
@@ -304,8 +278,6 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
 
   for (int i = 0; i < 3; i++) {
     delete[] mat1[i];
-    delete[] mat2[i];
-    delete[] mat3[i];
     delete[] mat1T[i];
     delete[] los11[i];
     delete[] los22[i];
@@ -328,8 +300,6 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
     delete[] rsite3R[i];
   }
   delete[] mat1;
-  delete[] mat2;
-  delete[] mat3;
   delete[] mat1T;
   delete[] los11;
   delete[] los22;
@@ -354,5 +324,4 @@ void anglesdr(double az1, double az2, double az3, double el1, double el2,
   delete[] los2V;
   delete[] los3V;
   delete[] r3;
-  deleteEOP();
 }

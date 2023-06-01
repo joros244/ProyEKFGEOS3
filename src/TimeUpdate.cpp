@@ -1,9 +1,5 @@
 #include "../include/TimeUpdate.h"
 #include "../include/matrix.h"
-#include <cstring>
-#include <iostream>
-
-using namespace std;
 
 void TimeUpdate(double **P, int fp, int cp, double **Phi, int fphi, int cphi,
                 double **Qdt, int fq, int cq) {

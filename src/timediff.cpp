@@ -3,7 +3,7 @@
 void timediff(double UT1_UTC, double TAI_UTC, double &UT1_TAI, double &UTC_GPS,
               double &UT1_GPS, double &TT_UTC, double &GPS_UTC) {
 
-  double TT_TAI = +32.184;          // TT-TAI time difference [s]
+  double TT_TAI = 32.184;           // TT-TAI time difference [s]
   double GPS_TAI = -19.0;           // GPS-TAI time difference [s]
   double TT_GPS = TT_TAI - GPS_TAI; // TT-GPS time difference [s]
   double TAI_GPS = -GPS_TAI;        // TAI-GPS time difference [s]

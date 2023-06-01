@@ -1,8 +1,6 @@
 #include "../include/IERS.h"
-#include <iostream>
+#include "../include/matrix.h"
 #include <math.h>
-
-using namespace std;
 
 void IERS(double **eop, double Mjd_TT, double &UT1_UTC, double &TAI_UTC,
           double &x_pole, double &y_pole) {
@@ -12,12 +10,12 @@ void IERS(double **eop, double Mjd_TT, double &UT1_UTC, double &TAI_UTC,
   double mj = round(Mjd_TT);
 
   bool b = false;
-  double *eopVec = new double[19716];
+  double *eopVec = new double[13];
 
-  for (int j = 0; j < 13; j++) {
-    if (mj == eop[3][j]) {
-      for (int i = 0; i < 19716; i++) {
-        eopVec[i] = eop[i][j];
+  for (int i = 0; i < 19716; i++) {
+    if (eop[i][3] == mj) {
+      for (int j = 0; j < 13; j++) {
+        eopVec[j] = eop[i][j];
       }
       b = true;
       break;
@@ -38,5 +36,7 @@ void IERS(double **eop, double Mjd_TT, double &UT1_UTC, double &TAI_UTC,
     x_pole = eop[0][4] / Arcs; // Pole coordinate [rad]
     y_pole = eop[0][5] / Arcs; // Pole coordinate [rad]
   }
+
   delete[] eopVec;
+  eopVec = nullptr;
 }

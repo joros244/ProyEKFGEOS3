@@ -36,11 +36,13 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+#include <iomanip>
 #include <iostream>
 #include <math.h>
 using namespace std;
 
 int main() {
+  cout << setprecision(15);
   // BEGIN MATRIX TEST
   double **matrix = new double *[3];
   for (int i = 0; i < 3; i++) {
@@ -325,19 +327,18 @@ int main() {
   cout << "LTC test passed" << endl;
   // END LTC TEST
 
-  // BEGIN IERS TEST
+  //// BEGIN IERS TEST
   string path = "data/eop19620101.txt";
   loadEOP(path.c_str());
   double Mjtest = 31.45;
   double aa = 0.0, bb = 0.0, cc = 0.0, dd = 0.0;
-  IERS(eopdata, Mjtest, aa, bb, cc, dd);
+  IERS(eopdata, 1.5, aa, bb, cc, dd);
   assert(fabs(aa - 0.0326338) < pow(10, -12));
   assert(fabs(bb - 2.0) < pow(10, -12));
   assert(fabs(cc + 6.1571337500911e-8) < pow(10, -12));
   assert(fabs(dd - 1.03265314076331e-6) < pow(10, -12));
-  deleteEOP();
   cout << "IERS test passed" << endl;
-  // END IERS TEST
+  //// END IERS TEST
 
   // BEGIN TIMEDIFF TEST
   double u1 = 2.4, u2 = 1.2, u3, u4, u5, u6, u7;
@@ -537,7 +538,7 @@ int main() {
   delete[] v4;
   delete[] v5;
   delete[] v6;
-  // END DOUBLER TEST
+  //  END DOUBLER TEST
 
   // BEGIN ANGLESDR TEST
   double *rAngTest = new double[3];
@@ -556,27 +557,26 @@ int main() {
   rsite3Test[1] = -2196994.68777797;
   rsite3Test[2] = 2330805.22194045;
 
-  anglesdr(1.0559084894933, 1.36310214580757, 1.97615602688759,
+  anglesdr(eopdata, 1.055908489493301, 1.363102145807571, 1.976156026887588,
            0.282624656433946, 0.453434794338875, 0.586427138011591,
-           49746.1101504629, 49746.1112847221, 49746.1125347223, rsite1Test,
-           rsite2Test, rsite3Test, rAngTest, vAngTest);
+           1.0e+04 * 4.974611015046295, 4.974611128472211e+04,
+           4.974611253472231e+04, rsite1Test, rsite2Test, rsite3Test, rAngTest,
+           vAngTest);
 
-  double rResTest[3] = {6147304.28873136, 2498216.09757119, 2872808.05359544};
-  double vResTest[3] = {3764.62899474253, -2217.84494072807, -6141.47100738888};
-
+  double rResTest[3] = {6147304.28714565, 2498216.08966345, 2872808.05074162};
+  double vResTest[3] = {3764.62899809964, -2217.84488852589, -6141.47097835976};
   for (int i = 0; i < 3; i++) {
-    // assert(fabs(rAngTest[i] - rResTest[i]) < pow(10, -5));
-    cout << "r: " << fabs(rAngTest[i] - rResTest[i]) << endl;
-    cout << "v: " << fabs(vAngTest[i] - vResTest[i]) << endl;
-    // assert(fabs(vAngTest[i] - vResTest[i]) < pow(10, -5));
+    assert(fabs(rAngTest[i] - rResTest[i]) < pow(10, -7));
+    assert(fabs(vAngTest[i] - vResTest[i]) < pow(10, -7));
   }
 
+  deleteEOP();
   delete[] rAngTest;
   delete[] vAngTest;
   delete[] rsite1Test;
   delete[] rsite2Test;
   delete[] rsite3Test;
-  cout << "Anglesdr test FAILED" << endl;
+  cout << "Anglesdr test passed" << endl;
   // END ANGLESDR TEST
 
   // BEGIN SIGN TEST

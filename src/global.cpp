@@ -44,6 +44,7 @@ void deleteEOP() {
     delete[] eopdata[i];
   }
   delete[] eopdata;
+  eopdata = nullptr;
 }
 
 void loadCS(const char *path) {

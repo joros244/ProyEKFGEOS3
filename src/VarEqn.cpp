@@ -109,7 +109,7 @@ void VarEqn(double x, double **yPhi, double **yPhip) {
 
   for (int i = 0; i < 6; i++) {
     for (int j = 0; j < 6; j++) {
-      yPhip[6 * (j + 1) + i][0] = Phip[i][j]; // dPhi/dt(i,j) ATENCIÓN AQUÍ
+      yPhip[6 * (j + 1) + i][0] = Phip[i][j]; // dPhi/dt(i,j)
     }
   }
   deleteEOP();

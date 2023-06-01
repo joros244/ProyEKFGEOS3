@@ -1,8 +1,5 @@
 #include "../include/MeasUpdate.h"
 #include "../include/matrix.h"
-#include <cstring>
-#include <iostream>
-#include <iterator>
 
 void MeasUpdate(double **x, double z, double g, double s, double *G, double **P,
                 int n, double **K) {
