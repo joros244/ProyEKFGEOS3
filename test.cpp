@@ -1,6 +1,7 @@
 #include "include/Accel.h"
 #include "include/AccelHarmonic.h"
 #include "include/AzElPa.h"
+#include "include/DEInteg.h"
 #include "include/EqnEquinox.h"
 #include "include/Frac.h"
 #include "include/GHAMatrix.h"
@@ -932,6 +933,33 @@ int main() {
   cout << "VarEqn test passed" << endl;
   // END VAREQN TEST
 
+  // BEGIN DEINTEG TEST
+  AuxParam.n = 10;
+  AuxParam.Mjd_TT = 0;
+  AuxParam.m = 10;
+  double **y0 = new double *[6];
+  double y0Val[6] = {6147304.28873136, 2498216.09757119,  2872808.05359544,
+                     3764.62899474253, -2217.84494072807, -6141.47100738888};
+  for (int i = 0; i < 6; i++) {
+    y0[i] = new double[1];
+    y0[i][0] = y0Val[i];
+  }
+  double yRes[6] = {5581744.09864746, 2772706.93493033,  3671626.85518517,
+                    4600.37580198231, -1842.28699520584, -5674.02636144618};
+
+  DEInteg(&Accel, 0.0, -134.999991953373, 1.0e-13, 1.0e-6, 6, y0);
+
+  for (int i = 0; i < 6; i++) {
+    assert(fabs(y0[i][0] - yRes[i]) < pow(10, -8));
+  }
+
+  for (int i = 0; i < 6; i++) {
+    delete[] y0[i];
+  }
+  delete[] y0;
+
+  cout << "DEInteg test passed" << endl;
+  // END DEINTEG TEST
   cout << "All test passed" << endl;
 
   return 0;

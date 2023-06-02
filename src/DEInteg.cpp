@@ -1,30 +1,29 @@
+#include "../include/DEInteg.h"
 #include "../include/SAT_Const.h"
 #include "../include/sign_.h"
+#include <algorithm>
 #include <cmath>
-#include <cstdlib>
-#include <cstring>
 #include <functional>
-#include <map>
-#include <string>
 
 using namespace std;
 
-double *DEInteg(function<double *(double, double *)> func, double t,
-                double tout, double relerr, double abserr, int n_eqn,
-                double *y) {
+struct Aux {
+  int DE_INIT = 1;     // Restart integration
+  int DE_DONE = 2;     // Successful step
+  int DE_BADACC = 3;   // Accuracy requirement could not be achieved
+  int DE_NUMSTEPS = 4; // Permitted number of steps exceeded
+  int DE_STIFF = 5;    // Stiff problem suspected
+  int DE_INVPARAM = 6; // Invalid input parameters
+};
+
+void DEInteg(function<void(double, double **, double **)> func, double t,
+             double tout, double relerr, double abserr, int n_eqn, double **y) {
   // maxnum = 500;
   double twou = 2 * eps;
   double fouru = 4 * eps;
+  Aux DE_STATE;
 
-  map<string, int> DE_STATE;
-  DE_STATE["DE_INIT"] = 1;     // Restart integration
-  DE_STATE["DE_DONE"] = 2;     // Successful step
-  DE_STATE["DE_BADACC"] = 3;   // Accuracy requirement could not be achieved
-  DE_STATE["DE_NUMSTEPS"] = 4; // Permitted number of steps exceeded
-  DE_STATE["DE_STIFF"] = 5;    // Stiff problem suspected
-  DE_STATE["DE_INVPARAM"] = 6; // Invalid input parameters
-
-  int State_ = DE_STATE["DE_INIT"];
+  int State_ = DE_STATE.DE_INIT;
   bool PermitTOUT = true; // Allow integration past tout by default
   int told = 0;
 
@@ -36,41 +35,86 @@ double *DEInteg(function<double *(double, double *)> func, double t,
                      0.0188,  0.0143,  0.0114,  0.00936, 0.00789,
                      0.00679, 0.00592, 0.00524, 0.00468};
 
-  double *yy = new double[n_eqn];
-  double *wt = new double[n_eqn];
-  double *p = new double[n_eqn];
-  double *yp = new double[n_eqn];
+  double **yy = new double *[n_eqn];
+  double **wt = new double *[n_eqn];
+  double **p = new double *[n_eqn];
+  double **yp = new double *[n_eqn];
   double **phi = new double *[n_eqn];
+  double **yout = new double *[n_eqn];
+  double **ypout = new double *[n_eqn];
   for (int i = 0; i < n_eqn; i++) {
     phi[i] = new double[17];
+    yy[i] = new double[1];
+    wt[i] = new double[1];
+    p[i] = new double[1];
+    yp[i] = new double[1];
+    yout[i] = new double[1];
+    ypout[i] = new double[1];
   }
-  // memset(yy, 0.0, sizeof(double) * n_eqn);
-  // memset(wt, 0.0, sizeof(double) * n_eqn);
-  // memset(p, 0.0, sizeof(double) * n_eqn);
-  // memset(yp, 0.0, sizeof(double) * n_eqn);
-  // memset(phi, 0.0, sizeof(double) * n_eqn * 17);
-  double *g = new double[14];
-  double *sig = new double[14];
-  double *rho = new double[14];
-  double *w = new double[13];
-  double *alpha = new double[13];
-  double *beta = new double[13];
-  double *v = new double[13];
-  double *psi_ = new double[13];
-  // memset(g, 0.0, sizeof(double) * 14);
-  // memset(sig, 0.0, sizeof(double) * 14);
-  // memset(rho, 0.0, sizeof(double) * 14);
-  // memset(w, 0.0, sizeof(double) * 13);
-  // memset(alpha, 0.0, sizeof(double) * 13);
-  // memset(beta, 0.0, sizeof(double) * 13);
-  // memset(v, 0.0, sizeof(double) * 13);
-  // memset(psi_, 0.0, sizeof(double) * 13);
+  double **g = new double *[14];
+  double **sig = new double *[14];
+  double **rho = new double *[14];
+  for (int i = 0; i < 14; i++) {
+    g[i] = new double[1];
+    sig[i] = new double[1];
+    rho[i] = new double[1];
+  }
+
+  double **w = new double *[13];
+  double **alpha = new double *[13];
+  double **beta = new double *[13];
+  double **v = new double *[13];
+  double **psi_ = new double *[13];
+  for (int i = 0; i < 13; i++) {
+    w[i] = new double[1];
+    alpha[i] = new double[1];
+    beta[i] = new double[1];
+    v[i] = new double[1];
+    psi_[i] = new double[1];
+  }
   //  while(true)
 
   // Return, if output time equals input time
 
   if (t == tout) { // No integration
-    exit(EXIT_FAILURE);
+    for (int i = 0; i < n_eqn; i++) {
+      delete[] phi[i];
+      delete[] yy[i];
+      delete[] wt[i];
+      delete[] p[i];
+      delete[] yp[i];
+      delete[] ypout[i];
+      delete[] yout[i];
+    }
+    for (int i = 0; i < 13; i++) {
+      delete[] w[i];
+      delete[] alpha[i];
+      delete[] beta[i];
+      delete[] v[i];
+      delete[] psi_[i];
+    }
+    for (int i = 0; i < 14; i++) {
+      delete[] g[i];
+      delete[] sig[i];
+      delete[] rho[i];
+    }
+    delete[] yy;
+    delete[] wt;
+    delete[] p;
+    delete[] yp;
+    delete[] phi;
+    delete[] g;
+    delete[] sig;
+    delete[] rho;
+    delete[] w;
+    delete[] alpha;
+    delete[] beta;
+    delete[] v;
+    delete[] psi_;
+    delete[] yout;
+    delete[] ypout;
+
+    return;
   }
 
   // Test for improper parameters
@@ -83,11 +127,48 @@ double *DEInteg(function<double *(double, double *)> func, double t,
       // Negative absolute error bound
       (epsilon <= 0.0) ||
       // Both error bounds are non-positive
-      (State_ > DE_STATE["DE_INVPARAM"]) ||
+      (State_ > DE_STATE.DE_INVPARAM) ||
       // Invalid status flag
-      ((State_ != DE_STATE["DE_INIT"]) && (t != told))) {
-    State_ = DE_STATE["DE_INVPARAM"]; // Set error code
-    exit(EXIT_FAILURE);               // Exit
+      ((State_ != DE_STATE.DE_INIT) && (t != told))) {
+    State_ = DE_STATE.DE_INVPARAM; // Set error code
+    for (int i = 0; i < n_eqn; i++) {
+      delete[] phi[i];
+      delete[] yy[i];
+      delete[] wt[i];
+      delete[] p[i];
+      delete[] yp[i];
+      delete[] ypout[i];
+      delete[] yout[i];
+    }
+    for (int i = 0; i < 13; i++) {
+      delete[] w[i];
+      delete[] alpha[i];
+      delete[] beta[i];
+      delete[] v[i];
+      delete[] psi_[i];
+    }
+    for (int i = 0; i < 14; i++) {
+      delete[] g[i];
+      delete[] sig[i];
+      delete[] rho[i];
+    }
+    delete[] yy;
+    delete[] wt;
+    delete[] p;
+    delete[] yp;
+    delete[] phi;
+    delete[] g;
+    delete[] sig;
+    delete[] rho;
+    delete[] w;
+    delete[] alpha;
+    delete[] beta;
+    delete[] v;
+    delete[] psi_;
+    delete[] yout;
+    delete[] ypout;
+
+    return; // Exit
   }
 
   // On each call set interval of integration and counter for
@@ -108,85 +189,168 @@ double *DEInteg(function<double *(double, double *)> func, double t,
   double releps = relerr / epsilon;
   double abseps = abserr / epsilon;
 
-  bool start;
-  double x, delsgn, h;
-  if ((State_ == DE_STATE["DE_INIT"]) || (delsgn * del <= 0.0)) {
+  bool start = false;
+  double x = 0.0, delsgn = 0.0, h = 0.0;
+  if ((State_ == DE_STATE.DE_INIT) || (delsgn * del <= 0.0)) {
     // On start and restart also set the work variables x and yy(*),
     // store the direction of integration and initialize the step size
     start = true;
     x = t;
-    yy = y;
+    yy[0][0] = y[0][0];
+    yy[1][0] = y[1][0];
+    yy[2][0] = y[2][0];
+    yy[3][0] = y[3][0];
+    yy[4][0] = y[4][0];
+    yy[5][0] = y[5][0];
     delsgn = sign_(1.0, del);
-    h = sign_(max(fouru * abs(x), abs(tout - x)), tout - x);
+    h = sign_(max(fouru * fabs(x), fabs(tout - x)), tout - x);
   }
 
-  int ki = 0, kold = 0;
-  bool OldPermit;
-  double *yout = new double[n_eqn];
-  double *ypout = new double[n_eqn];
+  int ki = 0, kold = 0, o = 0, ifail = 0, k = 0, kp1 = 0, kp2 = 0, km1 = 0,
+      km2 = 0, ns = 0, knew = 0, nsp1 = 0, realns = 0, im1 = 0, reali = 0,
+      nsm2 = 0, e = 0, limit1 = 0, limit2 = 0, nsp2 = 0, ei = 0, ip1 = 0;
+  bool OldPermit = false, crash = false, phase1 = false, nornd = false,
+       success = false;
+  double hi = 0.0, term = 0.0, temp1 = 0.0, psijm1 = 0.0, gamma = 0.0,
+         eta = 0.0, p5eps = 0.0, round = 0.0, sum = 0.0, erk = 0.0, erkm1 = 0.0,
+         hnew = 0.0, absh = 0.0, hold = 0.0, temp2 = 0.0, temp4 = 0.0,
+         temp5 = 0.0, temp3 = 0.0, temp6 = 0.0, tau = 0.0, xold = 0.0,
+         erkm2 = 0.0, err = 0.0, aux = 0.0, erkp1 = 0.0, r = 0.0;
   while (true) { // Start step loop
 
     // If already past output point, interpolate solution and return
     if (fabs(x - t) >= absdel) {
-      g[1] = 1.0;
-      rho[1] = 1.0;
-      double hi = tout - x;
+      g[1][0] = 1.0;
+      rho[1][0] = 1.0;
+      hi = tout - x;
       ki = kold + 1;
 
       // Initialize w[*] for computing g[*]
-      double temp1;
       for (int i = 0; i < ki; i++) {
-        temp1 = i;
-        w[i + 1] = 1.0 / temp1;
+        temp1 = i + 1;
+        w[i + 1][0] = 1.0 / temp1;
       }
       // Compute g[*]
-      double term = 0.0;
-      for (int j = 1; j < ki; j++) {
-        double psijm1 = psi_[j];
-        double gamma = (hi + term) / psijm1;
-        double eta = hi / psijm1;
-        for (int i = 0; i < ki + 1 - j; i++) {
-          w[i + 1] = gamma * w[i + 1] - eta * w[i + 2];
+      term = 0.0;
+      for (int j = 2; j < ki + 1; j++) {
+        psijm1 = psi_[j - 1][0];
+        gamma = (hi + term) / psijm1;
+        eta = hi / psijm1;
+        for (int i = 1; i < ki + 2 - j; i++) {
+          w[i][0] = gamma * w[i][0] - eta * w[i + 1][0];
         }
-        g[j + 1] = w[1];
-        rho[j + 1] = gamma * rho[j];
+        g[j][0] = w[1][0];
+        rho[j][0] = gamma * rho[j - 1][0];
         term = psijm1;
       }
 
       // Interpolate for the solution yout and for
       // the derivative of the solution ypout
-      int i;
       for (int j = 0; j < ki; j++) {
-        i = ki + 1 - j;
+        o = ki + 1 - (j + 1);
         for (int q = 0; q < n_eqn; q++) {
-          yout[q] += g[i + 1] * phi[q][i + 1];
-          ypout[q] += rho[i + 1] * phi[q][i + 1];
+          yout[q][0] += g[o][0] * phi[q][o];
+          ypout[q][0] += rho[o][0] * phi[q][o];
         }
       }
       for (int q = 0; q < n_eqn; q++) {
-        yout[q] = y[q] + hi * yout[q];
+        yout[q][0] = y[q][0] + hi * yout[q][0];
+        y[q][0] = yout[q][0];
       }
-      y = yout;
-      State_ = DE_STATE["DE_DONE"]; // Set return code
-      t = tout;                     // Set independent variable
-      told = t;                     // Store independent variable
+      State_ = DE_STATE.DE_DONE; // Set return code
+      t = tout;                  // Set independent variable
+      told = t;                  // Store independent variable
       OldPermit = PermitTOUT;
-      return y; // Normal exit
+      for (int i = 0; i < n_eqn; i++) {
+        delete[] phi[i];
+        delete[] yy[i];
+        delete[] wt[i];
+        delete[] p[i];
+        delete[] yp[i];
+        delete[] ypout[i];
+        delete[] yout[i];
+      }
+      for (int i = 0; i < 13; i++) {
+        delete[] w[i];
+        delete[] alpha[i];
+        delete[] beta[i];
+        delete[] v[i];
+        delete[] psi_[i];
+      }
+      for (int i = 0; i < 14; i++) {
+        delete[] g[i];
+        delete[] sig[i];
+        delete[] rho[i];
+      }
+      delete[] yy;
+      delete[] wt;
+      delete[] p;
+      delete[] yp;
+      delete[] phi;
+      delete[] g;
+      delete[] sig;
+      delete[] rho;
+      delete[] w;
+      delete[] alpha;
+      delete[] beta;
+      delete[] v;
+      delete[] psi_;
+      delete[] yout;
+      delete[] ypout;
+
+      return; // Normal exit
     }
 
     // If cannot go past output point and sufficiently close,
     // extrapolate and return
     if (!PermitTOUT && (fabs(tout - x) < fouru * fabs(x))) {
       h = tout - x;
-      yp = func(x, yy); // Compute derivative yp(x)
+      func(x, yy, yp); // Compute derivative yp(x)
       for (int q = 0; q < n_eqn; q++) {
-        y[q] = yy[q] + h * yp[q]; // Extrapolate vector from x to tout
+        y[q][0] = yy[q][0] + h * yp[q][0]; // Extrapolate vector from x to tout
       }
-      State_ = DE_STATE["DE_DONE"]; // Set return code
-      t = tout;                     // Set independent variable
-      told = t;                     // Store independent variable
+      State_ = DE_STATE.DE_DONE; // Set return code
+      t = tout;                  // Set independent variable
+      told = t;                  // Store independent variable
       OldPermit = PermitTOUT;
-      return y; // Normal exit
+      for (int i = 0; i < n_eqn; i++) {
+        delete[] phi[i];
+        delete[] yy[i];
+        delete[] wt[i];
+        delete[] p[i];
+        delete[] yp[i];
+        delete[] ypout[i];
+        delete[] yout[i];
+      }
+      for (int i = 0; i < 13; i++) {
+        delete[] w[i];
+        delete[] alpha[i];
+        delete[] beta[i];
+        delete[] v[i];
+        delete[] psi_[i];
+      }
+      for (int i = 0; i < 14; i++) {
+        delete[] g[i];
+        delete[] sig[i];
+        delete[] rho[i];
+      }
+      delete[] yy;
+      delete[] wt;
+      delete[] p;
+      delete[] yp;
+      delete[] phi;
+      delete[] g;
+      delete[] sig;
+      delete[] rho;
+      delete[] w;
+      delete[] alpha;
+      delete[] beta;
+      delete[] v;
+      delete[] psi_;
+      delete[] yout;
+      delete[] ypout;
+
+      return; // Normal exit
     }
 
     // Test for too much work
@@ -203,9 +367,9 @@ double *DEInteg(function<double *(double, double *)> func, double t,
     //   end
 
     // Limit step size, set weight vector and take a step
-    h = sign_(min(abs(h), abs(tend - x)), h);
+    h = sign_(min(fabs(h), fabs(tend - x)), h);
     for (int l = 0; l < n_eqn; l++) {
-      wt[l] = releps * fabs(yy[l]) + abseps;
+      wt[l][0] = releps * fabs(yy[l][0]) + abseps;
     }
 
     //   Step
@@ -218,53 +382,123 @@ double *DEInteg(function<double *(double, double *)> func, double t,
     // acceptable one.
     //
 
-    bool crash;
     if (fabs(h) < fouru * fabs(x)) {
-      h = sign_(fouru * abs(x), h);
+      h = sign_(fouru * fabs(x), h);
       crash = true;
-      exit(EXIT_FAILURE); // Exit
+      for (int i = 0; i < n_eqn; i++) {
+        delete[] phi[i];
+        delete[] yy[i];
+        delete[] wt[i];
+        delete[] p[i];
+        delete[] yp[i];
+        delete[] ypout[i];
+        delete[] yout[i];
+      }
+      for (int i = 0; i < 13; i++) {
+        delete[] w[i];
+        delete[] alpha[i];
+        delete[] beta[i];
+        delete[] v[i];
+        delete[] psi_[i];
+      }
+      for (int i = 0; i < 14; i++) {
+        delete[] g[i];
+        delete[] sig[i];
+        delete[] rho[i];
+      }
+      delete[] yy;
+      delete[] wt;
+      delete[] p;
+      delete[] yp;
+      delete[] phi;
+      delete[] g;
+      delete[] sig;
+      delete[] rho;
+      delete[] w;
+      delete[] alpha;
+      delete[] beta;
+      delete[] v;
+      delete[] psi_;
+      delete[] yout;
+      delete[] ypout;
+
+      return; // Exit
     }
 
-    double p5eps = 0.5 * epsilon;
+    p5eps = 0.5 * epsilon;
     crash = false;
-    g[1] = 1.0;
-    g[2] = 0.5;
-    sig[1] = 1.0;
+    g[1][0] = 1.0;
+    g[2][0] = 0.5;
+    sig[1][0] = 1.0;
 
-    int ifail = 0;
+    ifail = 0;
 
     // If error tolerance is too small, increase it to an
     // acceptable value.
 
-    double round = 0.0;
+    round = 0.0;
     for (int l = 0; l < n_eqn; l++) {
-      round = round + (y[l] * y[l]) / (wt[l] * wt[l]);
+      round += (y[l][0] * y[l][0]) / (wt[l][0] * wt[l][0]);
     }
     round = twou * sqrt(round);
     if (p5eps < round) {
       epsilon = 2.0 * round * (1.0 + fouru);
       crash = true;
-      exit(EXIT_FAILURE); // Exit
+      for (int i = 0; i < n_eqn; i++) {
+        delete[] phi[i];
+        delete[] yy[i];
+        delete[] wt[i];
+        delete[] p[i];
+        delete[] yp[i];
+        delete[] ypout[i];
+        delete[] yout[i];
+      }
+      for (int i = 0; i < 13; i++) {
+        delete[] w[i];
+        delete[] alpha[i];
+        delete[] beta[i];
+        delete[] v[i];
+        delete[] psi_[i];
+      }
+      for (int i = 0; i < 14; i++) {
+        delete[] g[i];
+        delete[] sig[i];
+        delete[] rho[i];
+      }
+      delete[] yy;
+      delete[] wt;
+      delete[] p;
+      delete[] yp;
+      delete[] phi;
+      delete[] g;
+      delete[] sig;
+      delete[] rho;
+      delete[] w;
+      delete[] alpha;
+      delete[] beta;
+      delete[] v;
+      delete[] psi_;
+      delete[] yout;
+      delete[] ypout;
+
+      return; // Exit
     }
 
-    bool phase1, nornd;
-    double hnew, absh, hold;
-    int k;
     if (start) {
       // Initialize. Compute appropriate step size for first step.
-      yp = func(x, y);
-      double sum = 0.0;
+      func(x, y, yp);
+      sum = 0.0;
       for (int l = 0; l < n_eqn; l++) {
-        phi[l][1] = yp[l];
+        phi[l][1] = yp[l][0];
         phi[l][2] = 0.0;
-        sum = sum + (yp[l] * yp[l]) / (wt[l] * wt[l]);
+        sum += (yp[l][0] * yp[l][0]) / (wt[l][0] * wt[l][0]);
       }
       sum = sqrt(sum);
       absh = fabs(h);
       if (epsilon < 16.0 * sum * h * h) {
         absh = 0.25 * sqrt(epsilon / sum);
       }
-      h = sign_(max(absh, fouru * abs(x)), h);
+      h = sign_(max(absh, fouru * fabs(x)), h);
       hold = 0.0;
       hnew = 0.0;
       k = 1;
@@ -287,10 +521,6 @@ double *DEInteg(function<double *(double, double *)> func, double t,
     //
     // Repeat blocks 1, 2 (and 3) until step is successful
     //
-    k = 0;
-    int kp1, kp2, km1, km2, ns;
-    double erk, erkm1;
-    int knew;
     while (true) {
 
       //
@@ -308,80 +538,75 @@ double *DEInteg(function<double *(double, double *)> func, double t,
       // ns is the number of steps taken with size h, including the
       // current one. When k<ns, no coefficients change.
 
-      ns = 0;
-      double hold = 0.0;
       if (fabs(h - hold) > pow(10, -12)) {
         ns = 0;
       }
       if (ns <= kold) {
         ns = ns + 1;
       }
-      int nsp1 = ns + 1;
+      nsp1 = ns + 1;
 
       if (k >= ns) {
         // Compute those components of alpha[*], beta[*], psi[*], sig[*]
         // which are changed
-        beta[ns] = 1.0;
-        int realns = ns;
-        alpha[ns] = 1.0 / realns;
-        double temp1 = h * realns;
-        sig[nsp1] = 1.0;
+        beta[ns][0] = 1.0;
+        realns = ns;
+        alpha[ns][0] = 1.0 / realns;
+        temp1 = h * realns;
+        sig[nsp1][0] = 1.0;
         if (k >= nsp1) {
-          int im1, reali;
-          double temp2;
-          for (int i = nsp1; i < k; i++) {
+          for (int i = nsp1; i < k + 1; i++) {
             im1 = i - 1;
-            temp2 = psi_[im1 + 1];
-            psi_[im1 + 1] = temp1;
-            beta[i + 1] = beta[im1 + 1] * psi_[im1 + 1] / temp2;
+            temp2 = psi_[im1][0];
+            psi_[im1][0] = temp1;
+            beta[i][0] = beta[im1][0] * psi_[im1][0] / temp2;
             temp1 = temp2 + h;
-            alpha[i + 1] = h / temp1;
+            alpha[i][0] = h / temp1;
             reali = i;
-            sig[i + 2] = reali * alpha[i + 1] * sig[i + 1];
+            sig[i + 1][0] = reali * alpha[i][0] * sig[i][0];
           }
         }
-        psi_[k + 1] = temp1;
+        psi_[k][0] = temp1;
 
         // Compute coefficients g[*]; initialize v[*] and set w[*].
         if (ns > 1) {
           // If order was raised, update diagonal part of v[*]
           if (k > kold) {
-            double temp4 = k * kp1;
-            v[k + 1] = 1.0 / temp4;
-            int nsm2 = ns - 2;
-            int i;
+            temp4 = k * kp1;
+            v[k][0] = 1.0 / temp4;
+            nsm2 = ns - 2;
             for (int j = 0; j < nsm2; j++) {
-              i = k - j;
-              v[i + 1] = v[i + 1] - alpha[j + 2] * v[i + 2];
+              e = k - (j + 1);
+              v[e][0] = v[e][0] - alpha[j + 2][0] * v[e + 1][0];
             }
           }
 
           // Update V[*] and set W[*]
-          int limit1 = kp1 - ns;
-          double temp5 = alpha[ns + 1];
+          limit1 = kp1 - ns;
+          temp5 = alpha[ns][0];
           for (int iq = 0; iq < limit1; iq++) {
-            v[iq + 1] = v[iq + 1] - temp5 * v[iq + 2];
-            w[iq + 1] = v[iq + 1];
+            v[iq + 1][0] = v[iq + 1][0] - temp5 * v[iq + 2][0];
+            w[iq + 1][0] = v[iq + 1][0];
           }
-          g[nsp1 + 1] = w[1];
+          g[nsp1][0] = w[1][0];
         } else {
           for (int iq = 0; iq < k; iq++) {
-            double temp3 = iq * (iq + 1);
-            v[iq + 1] = 1.0 / temp3;
-            w[iq + 1] = v[iq + 1];
+            temp3 = (iq + 1) * (iq + 2);
+            v[iq + 1][0] = 1.0 / temp3;
+            w[iq + 1][0] = v[iq + 1][0];
           }
         }
 
         // Compute the g[*] in the work vector w[*]
-        int nsp2 = ns + 2;
+        nsp2 = ns + 2;
         if (kp1 >= nsp2) {
-          for (int i = nsp2 - 1; i < kp1; i++) {
-            int limit2 = kp2 - i;
-            double temp6 = alpha[i];
+          for (int i = nsp2; i < kp1 + 1; i++) {
+            limit2 = kp2 - i;
+            temp6 = alpha[i - 1][0];
             for (int iq = 0; iq < limit2; iq++) {
-              w[iq + 1] = w[iq + 1] - temp6 * w[iq + 2];
+              w[iq + 1][0] = w[iq + 1][0] - temp6 * w[iq + 2][0];
             }
-            g[i + 1] = w[2];
+            g[i][0] = w[1][0];
           }
         }
       } // if K>=NS
@@ -399,10 +624,9 @@ double *DEInteg(function<double *(double, double *)> func, double t,
       // were used.
 
       // Change phi to phi star
-      double temp1;
       if (k >= nsp1) {
-        for (int i = nsp1; i < k; i++) {
-          temp1 = beta[i];
+        for (int i = nsp1; i < k + 1; i++) {
+          temp1 = beta[i][0];
           for (int l = 0; l < n_eqn; l++) {
             phi[l][i] = temp1 * phi[l][i];
           }
@@ -413,45 +637,41 @@ double *DEInteg(function<double *(double, double *)> func, double t,
       for (int l = 0; l < n_eqn; l++) {
         phi[l][kp2] = phi[l][kp1];
         phi[l][kp1] = 0.0;
-        p[l] = 0.0;
+        p[l][0] = 0.0;
       }
-      int i, ip1;
-      double temp2;
       for (int j = 0; j < k; j++) {
-        i = kp1 - j;
-        ip1 = i;
-        temp2 = g[i];
+        ei = kp1 - (j + 1);
+        ip1 = ei + 1;
+        temp2 = g[ei][0];
         for (int l = 0; l < n_eqn; l++) {
-          p[l] = p[l] + temp2 * phi[l][i];
-          phi[l][i] = phi[l][i] + phi[l][ip1];
+          p[l][0] = p[l][0] + temp2 * phi[l][ei];
+          phi[l][ei] = phi[l][ei] + phi[l][ip1];
         }
       }
       if (nornd) {
         for (int i = 0; i < n_eqn; i++) {
-          p[i] = y[i] + h * p[i];
+          p[i][0] = y[i][0] + h * p[i][0];
         }
       } else {
-        double tau;
         for (int l = 0; l < n_eqn; l++) {
-          tau = h * p[l] - phi[l][15];
-          p[l] = y[l] + tau;
-          phi[l][16] = (p[l] - y[l]) - tau;
+          tau = h * p[l][0] - phi[l][15];
+          p[l][0] = y[l][0] + tau;
+          phi[l][16] = (p[l][0] - y[l][0]) - tau;
         }
       }
-      double xold = x;
+      xold = x;
       x = x + h;
-      yp = func(x, p);
+      func(x, p, yp);
       absh = fabs(h);
 
       // Estimate errors at orders k, k - 1, k - 2
-      double erkm2 = 0.0;
+      erkm2 = 0.0;
       erkm1 = 0.0;
       erk = 0.0;
 
-      double temp3, temp4;
       for (int l = 0; l < n_eqn; l++) {
-        temp3 = 1.0 / wt[l];
-        temp4 = yp[l] - phi[l][1];
+        temp3 = 1.0 / wt[l][0];
+        temp4 = yp[l][0] - phi[l][1];
         if (km2 > 0) {
           erkm2 = erkm2 + ((phi[l][km1] + temp4) * temp3) *
                               ((phi[l][km1] + temp4) * temp3);
@@ -464,15 +684,15 @@ double *DEInteg(function<double *(double, double *)> func, double t,
       }
 
       if (km2 > 0) {
-        erkm2 = absh * sig[km1] * gstr[km2] * sqrt(erkm2);
+        erkm2 = absh * sig[km1][0] * gstr[km2] * sqrt(erkm2);
       }
       if (km2 >= 0) {
-        erkm1 = absh * sig[k] * gstr[km1] * sqrt(erkm1);
+        erkm1 = absh * sig[k][0] * gstr[km1] * sqrt(erkm1);
       }
 
-      double temp5 = absh * sqrt(erk);
-      double err = temp5 * (g[k] - g[kp1]);
-      erk = temp5 * sig[kp1] * gstr[k];
+      temp5 = absh * sqrt(erk);
+      err = temp5 * (g[k][0] - g[kp1][0]);
+      erk = temp5 * sig[kp1][0] * gstr[k];
       knew = k;
 
       // Test if order should be lowered
@@ -495,7 +715,7 @@ double *DEInteg(function<double *(double, double *)> func, double t,
       // If step is successful continue with block 4, otherwise repeat
       // blocks 1 and 2 after executing block 3
 
-      bool success = (err <= epsilon);
+      success = (err <= epsilon);
 
       if (!success) {
 
@@ -514,16 +734,16 @@ double *DEInteg(function<double *(double, double *)> func, double t,
         phase1 = false;
         x = xold;
         for (int i = 0; i < k; i++) {
-          temp1 = 1.0 / beta[i + 1];
-          ip1 = i + 1;
+          temp1 = 1.0 / beta[i + 1][0];
+          ip1 = i + 2;
           for (int l = 0; l < n_eqn; l++) {
-            phi[l][i + 1] = temp1 * (phi[l][i + 1] - phi[l][ip1 + 1]);
+            phi[l][i + 1] = temp1 * (phi[l][i + 1] - phi[l][ip1]);
           }
         }
 
         if (k >= 2) {
           for (int i = 1; i < k; i++) {
-            psi_[i] = psi_[i + 1] - h;
+            psi_[i][0] = psi_[i + 1][0] - h;
           }
         }
 
@@ -545,7 +765,44 @@ double *DEInteg(function<double *(double, double *)> func, double t,
           crash = true;
           h = sign_(fouru * fabs(x), h);
           epsilon = epsilon * 2.0;
-          exit(EXIT_FAILURE);
+          for (int i = 0; i < n_eqn; i++) {
+            delete[] phi[i];
+            delete[] yy[i];
+            delete[] wt[i];
+            delete[] p[i];
+            delete[] yp[i];
+            delete[] ypout[i];
+            delete[] yout[i];
+          }
+          for (int i = 0; i < 13; i++) {
+            delete[] w[i];
+            delete[] alpha[i];
+            delete[] beta[i];
+            delete[] v[i];
+            delete[] psi_[i];
+          }
+          for (int i = 0; i < 14; i++) {
+            delete[] g[i];
+            delete[] sig[i];
+            delete[] rho[i];
+          }
+          delete[] yy;
+          delete[] wt;
+          delete[] p;
+          delete[] yp;
+          delete[] phi;
+          delete[] g;
+          delete[] sig;
+          delete[] rho;
+          delete[] w;
+          delete[] alpha;
+          delete[] beta;
+          delete[] v;
+          delete[] psi_;
+          delete[] yout;
+          delete[] ypout;
+
+          return;
         }
         // Exit
 
@@ -573,24 +830,23 @@ double *DEInteg(function<double *(double, double *)> func, double t,
     hold = h;
 
     // Correct and evaluate
-    double temp1 = h * g[kp1];
+    temp1 = h * g[kp1][0];
     if (nornd) {
       for (int l = 0; l < n_eqn; l++) {
-        y[l] = p[l] + temp1 * (yp[l] - phi[l][1]);
+        y[l][0] = p[l][0] + temp1 * (yp[l][0] - phi[l][1]);
       }
     } else {
-      double aux;
       for (int l = 0; l < n_eqn; l++) {
-        aux = temp1 * (yp[l] - phi[l][1]) - phi[l][16];
-        y[l] = p[l] + aux;
-        phi[l][15] = (y[l] - p[l]) - aux;
+        aux = temp1 * (yp[l][0] - phi[l][1]) - phi[l][16];
+        y[l][0] = p[l][0] + aux;
+        phi[l][15] = (y[l][0] - p[l][0]) - aux;
       }
     }
-    yp = func(x, y);
+    func(x, y, yp);
 
     // Update differences for next step
     for (int l = 0; l < n_eqn; l++) {
-      phi[l][kp1] = yp[l] - phi[l][1];
+      phi[l][kp1] = yp[l][0] - phi[l][1];
       phi[l][kp2] = phi[l][kp1] - phi[l][kp2];
     }
     for (int i = 0; i < k; i++) {
@@ -603,7 +859,7 @@ double *DEInteg(function<double *(double, double *)> func, double t,
     // - in first phase when always raise order,
     // - already decided to lower order,
     // - step size not constant so estimate unreliable
-    double erkp1 = 0.0;
+    erkp1 = 0.0;
     if ((knew == km1) || (k == 12)) {
       phase1 = false;
     }
@@ -618,7 +874,7 @@ double *DEInteg(function<double *(double, double *)> func, double t,
       } else {
         if (kp1 <= ns) {
           for (int l = 0; l < n_eqn; l++) {
-            erkp1 = erkp1 + (phi[l][kp2] / wt[l]) * (phi[l][kp2] / wt[l]);
+            erkp1 = erkp1 + (phi[l][kp2] / wt[l][0]) * (phi[l][kp2] / wt[l][0]);
           }
           erkp1 = absh * gstr[kp1] * sqrt(erkp1);
           // Using estimated error at order k+1, determine
@@ -648,8 +904,6 @@ double *DEInteg(function<double *(double, double *)> func, double t,
     }     // end if !phase1
 
     // With new order determine appropriate step size for next step
-    double temp2;
-    double r;
     if (phase1 || (p5eps >= erk * two[k + 1])) {
       hnew = 2.0 * h;
     } else {
@@ -670,14 +924,56 @@ double *DEInteg(function<double *(double, double *)> func, double t,
 
     // Test for too small tolerances
     if (crash) {
-      State_ = DE_STATE["DE_BADACC"];
+      State_ = DE_STATE.DE_BADACC;
       relerr = epsilon * releps; // Modify relative and absolute
       abserr = epsilon * abseps; // accuracy requirements
-      y = yy;                    // Copy last step
+      y[0][0] = yy[0][0];        // Copy last step
+      y[1][0] = yy[1][0];        // Copy last step
+      y[2][0] = yy[2][0];        // Copy last step
+      y[3][0] = yy[3][0];        // Copy last step
+      y[4][0] = yy[4][0];        // Copy last step
+      y[5][0] = yy[5][0];        // Copy last step
       t = x;
       told = t;
       OldPermit = true;
-      exit(EXIT_FAILURE); // Weak failure exit
+      for (int i = 0; i < n_eqn; i++) {
+        delete[] phi[i];
+        delete[] yy[i];
+        delete[] wt[i];
+        delete[] p[i];
+        delete[] yp[i];
+        delete[] ypout[i];
+        delete[] yout[i];
+      }
+      for (int i = 0; i < 13; i++) {
+        delete[] w[i];
+        delete[] alpha[i];
+        delete[] beta[i];
+        delete[] v[i];
+        delete[] psi_[i];
+      }
+      for (int i = 0; i < 14; i++) {
+        delete[] g[i];
+        delete[] sig[i];
+        delete[] rho[i];
+      }
+      delete[] yy;
+      delete[] wt;
+      delete[] p;
+      delete[] yp;
+      delete[] phi;
+      delete[] g;
+      delete[] sig;
+      delete[] rho;
+      delete[] w;
+      delete[] alpha;
+      delete[] beta;
+      delete[] v;
+      delete[] psi_;
+      delete[] yout;
+      delete[] ypout;
+
+      return; // Weak failure exit
     }
 
     nostep = nostep + 1; // Count total number of steps
@@ -711,6 +1007,24 @@ double *DEInteg(function<double *(double, double *)> func, double t,
 
   for (int i = 0; i < n_eqn; i++) {
     delete[] phi[i];
+    delete[] yy[i];
+    delete[] wt[i];
+    delete[] p[i];
+    delete[] yp[i];
+    delete[] ypout[i];
+    delete[] yout[i];
+  }
+  for (int i = 0; i < 13; i++) {
+    delete[] w[i];
+    delete[] alpha[i];
+    delete[] beta[i];
+    delete[] v[i];
+    delete[] psi_[i];
+  }
+  for (int i = 0; i < 14; i++) {
+    delete[] g[i];
+    delete[] sig[i];
+    delete[] rho[i];
   }
   delete[] yy;
   delete[] wt;

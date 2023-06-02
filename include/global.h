@@ -2,6 +2,7 @@
 extern double **eopdata;
 extern double **Cnm;
 extern double **Snm;
+extern int n_eqn;
 struct Aux {
   double Mjd_TT = 0;
   double Mjd_UTC = 0;

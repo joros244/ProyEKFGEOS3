@@ -6,6 +6,7 @@ using namespace std;
 double **eopdata;
 double **Cnm;
 double **Snm;
+int n_eqn;
 Aux AuxParam;
 
 void loadEOP(const char *path) {
