@@ -8,8 +8,8 @@ Determination project written in MATLAB.
 To effectively compile and run this project you must keep the current folder 
 structure, as well as using the GCC compiler. To compile the project run the 
 following instruction from the project's root directory:
-```
-$ g++ src/*.cpp EKF_GEOS3.cpp
+```shell
+g++ src/*.cpp EKF_GEOS3.cpp
 ```
 Once compiled, you may run it using the following instruction:
 ```
