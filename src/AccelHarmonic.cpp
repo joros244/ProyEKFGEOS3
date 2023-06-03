@@ -5,13 +5,8 @@
 #include "../include/matrix.h"
 #include "../include/vector.h"
 #include <cmath>
-#include <string>
-using namespace std;
 
 void AccelHarmonic(double **r, double **E, int n_max, int m_max, double **a) {
-
-  string path = "data/egm.txt";
-  loadCS(path.c_str());
 
   double gm = 398600.4415e9;  // [m^3/s^2]; JGM3/EGM96
   double r_ref = 6378.1363e3; // Radius Earth [m]; JGM3/EGM96
@@ -109,5 +104,4 @@ void AccelHarmonic(double **r, double **E, int n_max, int m_max, double **a) {
   delete[] dpnm;
   delete[] r_bf;
   delete[] r_bf_t;
-  deleteCS();
 }

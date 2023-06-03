@@ -31,7 +31,9 @@
 #include "include/mjday.h"
 #include "include/timediff.h"
 #include "include/vector.h"
+#include <cmath>
 #include <cstdio>
+#include <iomanip>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -61,7 +63,7 @@ int main() {
     obs[i][3] = 1.0e3 * Dist;
   }
   fclose(fp);
-  cout << "READ FILE" << endl;
+
   double sigma_range = 92.5;      // [m]
   double sigma_az = 0.0224 * Rad; // [rad]
   double sigma_el = 0.0139 * Rad; // [rad]
@@ -80,9 +82,18 @@ int main() {
 
   double *r2 = new double[3];
   double *v2 = new double[3];
+  double *Rs1 = new double[3];
+  double *Rs2 = new double[3];
+  double *Rs3 = new double[3];
+
+  for (int i = 0; i < 3; i++) {
+    Rs1[i] = Rs[i];
+    Rs2[i] = Rs[i];
+    Rs3[i] = Rs[i];
+  }
 
   anglesdr(eopdata, obs[0][1], obs[8][1], obs[17][1], obs[0][2], obs[8][2],
-           obs[17][2], Mjd1, Mjd2, Mjd3, Rs, Rs, Rs, r2, v2);
+           obs[17][2], Mjd1, Mjd2, Mjd3, Rs1, Rs2, Rs3, r2, v2);
 
   double **Y0_apr = new double *[6];
 
@@ -98,7 +109,7 @@ int main() {
 
   double Mjd0 = mjday(1995, 1, 29, 02, 38, 00.0);
 
-  double Mjd_UTC = obs[9][1];
+  double Mjd_UTC = obs[8][0];
   double UT1_UTC, TAI_UTC, x_pole, y_pole;
   IERS(eopdata, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
   double UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC;
@@ -110,10 +121,8 @@ int main() {
 
   n_eqn = 6;
 
-  cout << "PRIM DEINTEG" << endl;
   DEInteg(&Accel, 0.0, -(obs[8][0] - Mjd0) * 86400.0, 1.0e-13, 1.0e-6, 6,
           Y0_apr);
-  cout << "FIN DEINTEG" << endl;
 
   double **P = new double *[6];
   double **Phi = new double *[6];
@@ -154,8 +163,8 @@ int main() {
   }
 
   // Measurement loop
-  double t = 0;
-  double t_old;
+  double t = 0.0;
+  double t_old = 0.0;
   double **Y_old = new double *[6];
   double *dAdY = new double[6];
   double *dEdY = new double[6];
@@ -166,16 +175,15 @@ int main() {
     K[i] = new double[1];
   }
 
-  double Azim, Elev, Mjd_TT, Mjd_UT1;
-  cout << "TO FOR" << endl;
-  for (int i = 0; i < nobs; i++) {
+  double Azim = 0.0, Elev = 0.0, Mjd_TT = 0.0, Mjd_UT1 = 0.0, theta = 0.0;
+  for (int ji = 0; ji < nobs; ji++) {
     // Previous step
     t_old = t;
     for (int ii = 0; ii < 6; ii++) {
       Y_old[ii][0] = Y0_apr[ii][0];
     }
     // Time increment and propagation
-    Mjd_UTC = obs[i][0];            // Modified Julian Date
+    Mjd_UTC = obs[ji][0];           // Modified Julian Date
     t = (Mjd_UTC - Mjd0) * 86400.0; // Time since epoch [s]
 
     IERS(eopdata, Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
@@ -189,27 +197,26 @@ int main() {
       yPhi[ii][0] = Y_old[ii][0];
       for (int j = 0; j < 6; j++) {
         if (ii == j) {
-          yPhi[6 * j + ii][0] = 1.0;
+          yPhi[6 * (j + 1) + ii][0] = 1.0;
         } else {
-          yPhi[6 * j + ii][0] = 0.0;
+          yPhi[6 * (j + 1) + ii][0] = 0.0;
         }
       }
     }
 
-    DEInteg(&VarEqn, 0, t - t_old, 1e-13, 1e-6, 42, yPhi);
+    DEInteg(&VarEqn, 0.0, t - t_old, 1.0e-13, 1.0e-6, 42, yPhi);
 
     // Extract state transition matrices
     for (int j = 0; j < 6; j++) {
-
       for (int ii = 0; ii < 6; ii++) {
         Phi[ii][j] = yPhi[6 * (j + 1) + ii][0];
       }
     }
 
-    DEInteg(&Accel, 0, t - t_old, 1e-13, 1e-6, 6, Y0_apr);
+    DEInteg(&Accel, 0.0, t - t_old, 1.0e-13, 1.0e-6, 6, Y0_apr);
 
     // Topocentric coordinates
-    double theta = gmst(Mjd_UT1); // Earth rotation
+    theta = gmst(Mjd_UT1); // Earth rotation
     R_z(theta, U);
     r[0][0] = Y0_apr[0][0];
     r[1][0] = Y0_apr[1][0];
@@ -232,13 +239,16 @@ int main() {
     dAdY[2] = aux3[2];
 
     // Measurement update
-    MeasUpdate(Y0_apr, obs[i][1], Azim, sigma_az, dAdY, P, 6, K);
+    MeasUpdate(Y0_apr, obs[ji][1], Azim, sigma_az, dAdY, P, 6, K);
 
     // Elevation and partials
     r[0][0] = Y0_apr[0][0];
     r[1][0] = Y0_apr[1][0];
     r[2][0] = Y0_apr[2][0];
     mult(U, 3, 3, r, 3, 1, aux1);
+    aux1[0][0] -= Rs[0];
+    aux1[1][0] -= Rs[1];
+    aux1[2][0] -= Rs[2];
     mult(LT, 3, 3, aux1, 3, 1, ss); // Topocentric position [m]
     transpose(ss, &aux2, 3, 1);
     AzElPa(aux2, Azim, Elev, dAds, dEds); // Azimuth, Elevation
@@ -248,13 +258,16 @@ int main() {
     dEdY[2] = aux3[2];
 
     // Measurement update
-    MeasUpdate(Y0_apr, obs[i][2], Elev, sigma_el, dEdY, P, 6, K);
+    MeasUpdate(Y0_apr, obs[ji][2], Elev, sigma_el, dEdY, P, 6, K);
 
     // Range and partials
     r[0][0] = Y0_apr[0][0];
     r[1][0] = Y0_apr[1][0];
     r[2][0] = Y0_apr[2][0];
     mult(U, 3, 3, r, 3, 1, aux1);
+    aux1[0][0] -= Rs[0];
+    aux1[1][0] -= Rs[1];
+    aux1[2][0] -= Rs[2];
     mult(LT, 3, 3, aux1, 3, 1, ss); // Topocentric position [m]
     transpose(ss, &aux2, 3, 1);
     Dist = norm(aux2, 3);
@@ -268,9 +281,8 @@ int main() {
     dDdY[1] = aux3[1];
     dDdY[2] = aux3[2];
     // Measurement update
-    MeasUpdate(Y0_apr, obs[i][3], Dist, sigma_range, dDdY, P, 6, K);
+    MeasUpdate(Y0_apr, obs[ji][3], Dist, sigma_range, dDdY, P, 6, K);
   }
-  cout << "FIN FOR" << endl;
 
   IERS(eopdata, obs[17][0], UT1_UTC, TAI_UTC, x_pole, y_pole);
   timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
@@ -278,20 +290,20 @@ int main() {
   AuxParam.Mjd_UTC = Mjd_UTC;
   AuxParam.Mjd_TT = Mjd_TT;
 
-  DEInteg(&Accel, 0, -(obs[17][0] - obs[0][0]) * 86400.0, 1e-13, 1e-6, 6,
+  DEInteg(&Accel, 0.0, -(obs[17][0] - obs[0][0]) * 86400.0, 1.0e-13, 1.0e-6, 6,
           Y0_apr);
 
   double Y_true[6] = {5753.173e3, 2673.361e3,  3440.304e3,
                       4.324207e3, -1.924299e3, -5.728216e3};
 
   printf("\nError of Position Estimation\n");
-  printf("dX%10.1f [m]\n", Y0_apr[0][0] - Y_true[0]);
-  printf("dY%10.1f [m]\n", Y0_apr[1][0] - Y_true[1]);
-  printf("dZ%10.1f [m]\n", Y0_apr[2][0] - Y_true[2]);
+  printf("dX %10.1f [m]\n", Y0_apr[0][0] - Y_true[0]);
+  printf("dY %10.1f [m]\n", Y0_apr[1][0] - Y_true[1]);
+  printf("dZ %10.1f [m]\n", Y0_apr[2][0] - Y_true[2]);
   printf("\nError of Velocity Estimation\n");
-  printf("dVx%8.1f [m/s]\n", Y0_apr[3][0] - Y_true[3]);
-  printf("dVy%8.1f [m/s]\n", Y0_apr[4][0] - Y_true[4]);
-  printf("dVz%8.1f [m/s]\n", Y0_apr[5][0] - Y_true[5]);
+  printf("dVx %8.1f [m/s]\n", Y0_apr[3][0] - Y_true[3]);
+  printf("dVy %8.1f [m/s]\n", Y0_apr[4][0] - Y_true[4]);
+  printf("dVz %8.1f [m/s]\n", Y0_apr[5][0] - Y_true[5]);
   for (int i = 0; i < 6; i++) {
     delete[] Y0_apr[i];
     delete[] Y_old[i];
@@ -311,7 +323,12 @@ int main() {
   }
   deleteEOP();
   deleteCS();
+  delete[] r2;
+  delete[] v2;
   delete[] Rs;
+  delete[] Rs1;
+  delete[] Rs2;
+  delete[] Rs3;
   delete[] Y0_apr;
   delete[] Y_old;
   delete[] P;
@@ -323,6 +340,7 @@ int main() {
   delete[] LT;
   delete[] aux1;
   delete[] aux2;
+  delete[] aux3;
   delete[] dAds;
   delete[] dEds;
   delete[] dDds;

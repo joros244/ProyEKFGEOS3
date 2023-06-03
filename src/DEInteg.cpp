@@ -5,8 +5,6 @@
 #include <cmath>
 #include <functional>
 
-using namespace std;
-
 struct Aux {
   int DE_INIT = 1;     // Restart integration
   int DE_DONE = 2;     // Successful step
@@ -226,9 +224,9 @@ void DEInteg(function<void(double, double **, double **)> func, double t,
       ki = kold + 1;
 
       // Initialize w[*] for computing g[*]
-      for (int i = 0; i < ki; i++) {
-        temp1 = i + 1;
-        w[i + 1][0] = 1.0 / temp1;
+      for (int ti = 1; ti <= ki; ti++) {
+        temp1 = ti;
+        w[ti][0] = 1.0 / temp1;
       }
       // Compute g[*]
       term = 0.0;

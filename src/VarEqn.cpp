@@ -10,16 +10,12 @@
 #include "../include/global.h"
 #include "../include/matrix.h"
 #include "../include/timediff.h"
-#include <string>
-using namespace std;
 
 void VarEqn(double x, double **yPhi, double **yPhip) {
-
-  double UT1_UTC, TAI_UTC, x_pole, y_pole;
-  string path = "data/eop19620101.txt";
-  loadEOP(path.c_str());
+  double UT1_UTC = 0.0, TAI_UTC = 0.0, x_pole = 0.0, y_pole = 0.0;
   IERS(eopdata, AuxParam.Mjd_UTC, UT1_UTC, TAI_UTC, x_pole, y_pole);
-  double UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC;
+  double UT1_TAI = 0.0, UTC_GPS = 0.0, UT1_GPS = 0.0, TT_UTC = 0.0,
+         GPS_UTC = 0.0;
   timediff(UT1_UTC, TAI_UTC, UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC);
   double Mjd_UT1 = AuxParam.Mjd_TT + (UT1_UTC - TT_UTC) / 86400.0;
 
@@ -112,7 +108,6 @@ void VarEqn(double x, double **yPhi, double **yPhip) {
       yPhip[6 * (j + 1) + i][0] = Phip[i][j]; // dPhi/dt(i,j)
     }
   }
-  deleteEOP();
   for (int i = 0; i < 3; i++) {
     delete[] P[i];
     delete[] N[i];

@@ -1,5 +1,5 @@
 // Mathematical constants
-const double pi = 3.14159265358979324;
+const double pi = 3.141592653589793;
 const double pi2 = 2.0 * pi;             // 2pi
 const double Rad = pi / 180.0;           // Radians per degree
 const double Deg = 180.0 / pi;           // Degrees per radian
@@ -10,8 +10,8 @@ const double MJD_J2000 = 51544.5;           // Modif. Julian Date of J2000.0
 const double T_B1950 = -0.500002108;        // Epoch B1950
 const double c_light = 299792457.999999984; // Speed of light  [m/s]; DE200
 const double AU = 149597870659.999996;      // Astronomical unit [m]; DE200
-					    // Machine's epsilon
-const double eps= 2.22044604925031e-16;
+                                            // Machine's epsilon
+const double eps = 2.22044604925031e-16;
 
 // Physical parameters of the Earth, Sun and Moon
 

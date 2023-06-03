@@ -11,10 +11,10 @@ void doubler(double cc1, double cc2, double magrsite1, double magrsite2,
              double &a, double &deltae32) {
 
   double rho1 =
-      (-cc1 + sqrt(pow(cc1, 2) - 4 * (pow(magrsite1, 2) - pow(magr1in, 2)))) /
+      (-cc1 + sqrt(pow(cc1, 2) - 4.0 * (pow(magrsite1, 2) - pow(magr1in, 2)))) /
       2.0;
   double rho2 =
-      (-cc2 + sqrt(pow(cc2, 2) - 4 * (pow(magrsite2, 2) - pow(magr2in, 2)))) /
+      (-cc2 + sqrt(pow(cc2, 2) - 4.0 * (pow(magrsite2, 2) - pow(magr2in, 2)))) /
       2.0;
 
   double *r1 = new double[3];
@@ -76,7 +76,7 @@ void doubler(double cc1, double cc2, double magrsite1, double magrsite2,
   double ecosv3 = (p / magr3) - 1;
 
   double esinv2;
-  if (fabs(dv21 - pi) > pow(10, -16)) {
+  if (fabs(dv21 - pi) > pow(10, -10)) {
     esinv2 = (-cosdv21 * ecosv2 + ecosv1) / sindv21;
   } else {
     esinv2 = (cosdv32 * ecosv2 - ecosv3) / sindv31;
@@ -87,40 +87,40 @@ void doubler(double cc1, double cc2, double magrsite1, double magrsite2,
 
   double n, s, c, sinde32, cosde32, sinde21, cosde21, deltae21, deltam32,
       deltam12, sindh32, sindh21, deltah32, deltah21;
-  if (pow(e, 2) < 0.99) {
+  if (e * e < 0.99) {
     n = sqrt(GM_Earth / pow(a, 3));
 
     s = magr2 / p * sqrt(1.0 - pow(e, 2)) * esinv2;
     c = magr2 / p * (pow(e, 2) + ecosv2);
 
-    sinde32 = magr3 / sqrt(a * p) * sindv32 - magr3 / p * (1 - cosdv32) * s;
-    cosde32 = 1 - magr2 * magr3 / (a * p) * (1 - cosdv32);
+    sinde32 = magr3 / sqrt(a * p) * sindv32 - magr3 / p * (1.0 - cosdv32) * s;
+    cosde32 = 1.0 - magr2 * magr3 / (a * p) * (1.0 - cosdv32);
     deltae32 = atan2(sinde32, cosde32);
 
-    sinde21 = magr1 / sqrt(a * p) * sindv21 + magr1 / p * (1 - cosdv21) * s;
-    cosde21 = 1 - magr2 * magr1 / (a * p) * (1 - cosdv21);
+    sinde21 = magr1 / sqrt(a * p) * sindv21 + magr1 / p * (1.0 - cosdv21) * s;
+    cosde21 = 1.0 - magr2 * magr1 / (a * p) * (1.0 - cosdv21);
     deltae21 = atan2(sinde21, cosde21);
 
     deltam32 =
-        deltae32 + 2 * s * pow((sin(deltae32 / 2)), 2) - c * sin(deltae32);
+        deltae32 + 2.0 * s * pow((sin(deltae32 / 2)), 2) - c * sin(deltae32);
     deltam12 =
-        -deltae21 + 2 * s * pow((sin(deltae21 / 2)), 2) + c * sin(deltae21);
+        -deltae21 + 2.0 * s * pow((sin(deltae21 / 2)), 2) + c * sin(deltae21);
   } else {
     n = sqrt(GM_Earth / pow(-a, 3));
 
-    s = magr2 / p * sqrt(pow(e, 2) - 1) * esinv2;
+    s = magr2 / p * sqrt(pow(e, 2) - 1.0) * esinv2;
     c = magr2 / p * (pow(e, 2) + ecosv2);
 
-    sindh32 = magr3 / sqrt(-a * p) * sindv32 - magr3 / p * (1 - cosdv32) * s;
-    sindh21 = magr1 / sqrt(-a * p) * sindv21 + magr1 / p * (1 - cosdv21) * s;
+    sindh32 = magr3 / sqrt(-a * p) * sindv32 - magr3 / p * (1.0 - cosdv32) * s;
+    sindh21 = magr1 / sqrt(-a * p) * sindv21 + magr1 / p * (1.0 - cosdv21) * s;
 
-    deltah32 = log(sindh32 + sqrt(pow(sindh32, 2) + 1));
-    deltah21 = log(sindh21 + sqrt(pow(sindh21, 2) + 1));
+    deltah32 = log(sindh32 + sqrt(pow(sindh32, 2) + 1.0));
+    deltah21 = log(sindh21 + sqrt(pow(sindh21, 2) + 1.0));
 
     deltam32 =
-        -deltah32 + 2 * s * pow((sinh(deltah32 / 2)), 2) + c * sinh(deltah32);
+        -deltah32 + 2.0 * s * pow((sinh(deltah32 / 2)), 2) + c * sinh(deltah32);
     deltam12 =
-        deltah21 + 2 * s * pow((sinh(deltah21 / 2)), 2) - c * sinh(deltah21);
+        deltah21 + 2.0 * s * pow((sinh(deltah21 / 2)), 2) - c * sinh(deltah21);
 
     deltae32 = deltah32;
   }

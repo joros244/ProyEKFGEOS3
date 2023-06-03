@@ -331,6 +331,8 @@ int main() {
   //// BEGIN IERS TEST
   string path = "data/eop19620101.txt";
   loadEOP(path.c_str());
+  string pathCS = "data/egm.txt";
+  loadCS(pathCS.c_str());
   double Mjtest = 31.45;
   double aa = 0.0, bb = 0.0, cc = 0.0, dd = 0.0;
   IERS(eopdata, 1.5, aa, bb, cc, dd);
@@ -571,7 +573,6 @@ int main() {
     assert(fabs(vAngTest[i] - vResTest[i]) < pow(10, -7));
   }
 
-  deleteEOP();
   delete[] rAngTest;
   delete[] vAngTest;
   delete[] rsite1Test;
@@ -957,6 +958,8 @@ int main() {
     delete[] y0[i];
   }
   delete[] y0;
+  deleteEOP();
+  deleteCS();
 
   cout << "DEInteg test passed" << endl;
   // END DEINTEG TEST

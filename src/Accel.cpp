@@ -9,13 +9,8 @@
 #include "../include/global.h"
 #include "../include/matrix.h"
 #include "../include/timediff.h"
-#include <string>
-using namespace std;
 
 void Accel(double x, double **Y, double **dY) {
-  string path = "data/eop19620101.txt";
-  loadEOP(path.c_str());
-
   double UT1_UTC, TAI_UTC, x_pole, y_pole;
   IERS(eopdata, AuxParam.Mjd_TT + x / 86400, UT1_UTC, TAI_UTC, x_pole, y_pole);
   double UT1_TAI, UTC_GPS, UT1_GPS, TT_UTC, GPS_UTC;
@@ -82,5 +77,4 @@ void Accel(double x, double **Y, double **dY) {
   delete[] E;
   delete[] a;
   delete[] r;
-  deleteEOP();
 }

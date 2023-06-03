@@ -12,10 +12,10 @@ void IERS(double **eop, double Mjd_TT, double &UT1_UTC, double &TAI_UTC,
   bool b = false;
   double *eopVec = new double[13];
 
-  for (int i = 0; i < 19716; i++) {
-    if (eop[i][3] == mj) {
+  for (int iii = 0; iii < 19716; iii++) {
+    if (fabs(eop[iii][3] - mj) < pow(10, -10)) {
       for (int j = 0; j < 13; j++) {
-        eopVec[j] = eop[i][j];
+        eopVec[j] = eop[iii][j];
       }
       b = true;
       break;
@@ -38,5 +38,4 @@ void IERS(double **eop, double Mjd_TT, double &UT1_UTC, double &TAI_UTC,
   }
 
   delete[] eopVec;
-  eopVec = nullptr;
 }

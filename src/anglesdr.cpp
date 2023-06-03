@@ -21,7 +21,7 @@ void anglesdr(double **eop, double az1, double az2, double az3, double el1,
   double magr1in = 1.1 * R_Earth;
   double magr2in = 1.11 * R_Earth;
   char direct = 'y';
-  double tol = 1e-8 * R_Earth;
+  double tol = 1.0e-8 * R_Earth;
   double pctchg = 0.005;
   double t1 = (Mjd1 - Mjd2) * 86400.0;
   double t3 = (Mjd3 - Mjd2) * 86400.0;
