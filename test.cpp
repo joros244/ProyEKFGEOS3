@@ -165,7 +165,7 @@ int main() {
   delete[] ivMat;
   delete[] inverseMat;
 
-  cout << "Matrix test passed" << endl;
+  cout << "Matrix test PASSED" << endl;
 
   // END MATRIX TEST
 
@@ -188,7 +188,7 @@ int main() {
     delete[] res4[i];
   }
   delete[] res4;
-  cout << "R_x test passed" << endl;
+  cout << "R_x test PASSED" << endl;
   // END R_X TEST
 
   // BEGIN VECTOR TEST
@@ -207,7 +207,7 @@ int main() {
   assert(fabs(vecTest3[0] + 3.0) < pow(10, -12));
   assert(fabs(vecTest3[1] - 0.0) < pow(10, -12));
   assert(fabs(vecTest3[2] - 1.0) < pow(10, -12));
-  cout << "Vector test passed" << endl;
+  cout << "Vector test PASSED" << endl;
   delete[] vecTest1;
   delete[] vecTest2;
   delete[] vecTest3;
@@ -218,7 +218,7 @@ int main() {
               60061.76191365718841552734375) < pow(10, -12));
   assert(fabs(mjday(2023, 4, 27) - 60061.0) < pow(10, -12));
   assert(fabs(mjday(0, 0, 0) + 678987.0) < pow(10, -12));
-  cout << "Mjday test passed" << endl;
+  cout << "Mjday test PASSED" << endl;
   // END MJDAY TEST
 
   // BEGIN POSITION TEST
@@ -244,7 +244,7 @@ int main() {
   delete[] p;
   delete[] resP;
 
-  cout << "Position test passed" << endl;
+  cout << "Position test PASSED" << endl;
   // END POSITION TEST
 
   // BEGIN GEODETIC TEST
@@ -260,7 +260,7 @@ int main() {
 
   delete[] r;
 
-  cout << "Geodetic test passed" << endl;
+  cout << "Geodetic test PASSED" << endl;
   // END GEODETIC TEST
 
   // BEGIN R_Y TEST
@@ -282,7 +282,7 @@ int main() {
     delete[] ryTest[i];
   }
   delete[] ryTest;
-  cout << "R_y test passed" << endl;
+  cout << "R_y test PASSED" << endl;
   // END R_Y TEST
 
   // BEGIN R_Z TEST
@@ -304,7 +304,7 @@ int main() {
     delete[] rzTest[i];
   }
   delete[] rzTest;
-  cout << "R_z test passed" << endl;
+  cout << "R_z test PASSED" << endl;
   // END R_Z TEST
 
   // BEGIN LTC TEST
@@ -325,7 +325,7 @@ int main() {
     delete[] ltcTest[i];
   }
   delete[] ltcTest;
-  cout << "LTC test passed" << endl;
+  cout << "LTC test PASSED" << endl;
   // END LTC TEST
 
   //// BEGIN IERS TEST
@@ -340,7 +340,7 @@ int main() {
   assert(fabs(bb - 2.0) < pow(10, -12));
   assert(fabs(cc + 6.1571337500911e-8) < pow(10, -12));
   assert(fabs(dd - 1.03265314076331e-6) < pow(10, -12));
-  cout << "IERS test passed" << endl;
+  cout << "IERS test PASSED" << endl;
   //// END IERS TEST
 
   // BEGIN TIMEDIFF TEST
@@ -351,7 +351,7 @@ int main() {
   assert(fabs(u5 - 20.2) < pow(10, -12));
   assert(fabs(u6 - 33.384) < pow(10, -12));
   assert(fabs(u7 + 17.8) < pow(10, -12));
-  cout << "Timediff test passed" << endl;
+  cout << "Timediff test PASSED" << endl;
   // END TIMEDIFF TEST
 
   // BEGIN PRECMATRIX TEST
@@ -375,12 +375,12 @@ int main() {
     delete[] precTest[i];
   }
   delete[] precTest;
-  cout << "PrecMatrix test passed" << endl;
+  cout << "PrecMatrix test PASSED" << endl;
   // END PRECMATRIX TEST
 
   // BEGIN MEANOBLIQUITY TEST
   assert(fabs(MeanObliquity(3.14) - 0.409413050674634) < pow(10, -12));
-  cout << "MeanObliquity test passed" << endl;
+  cout << "MeanObliquity test PASSED" << endl;
   // END MEANOBLIQUITY TEST
 
   // BEGIN NUTANGLES TEST
@@ -388,7 +388,7 @@ int main() {
   NutAngles(3.14, dpsi, deps);
   assert(fabs(dpsi - 2.726049715404026e-05) < pow(10, -12));
   assert(fabs(deps - 3.873700829677442e-05) < pow(10, -12));
-  cout << "NutAngles test passed" << endl;
+  cout << "NutAngles test PASSED" << endl;
   // END NUTANGLES TEST
 
   // BEGIN NUTMATRIX TEST
@@ -412,7 +412,7 @@ int main() {
     delete[] nutMatTest[i];
   }
   delete[] nutMatTest;
-  cout << "NutMatrix test passed" << endl;
+  cout << "NutMatrix test PASSED" << endl;
   // END NUTMATRIX TEST
 
   // BEGIN POLEMATRIX TEST
@@ -436,27 +436,27 @@ int main() {
     delete[] poleTest[i];
   }
   delete[] poleTest;
-  cout << "PoleMatrix test passed" << endl;
+  cout << "PoleMatrix test PASSED" << endl;
   // END POLEMATRIX TEST
 
   // BEGIN GAST TEST
   assert(fabs(gast(3.14) - 1.906895863343556) < pow(10, -12));
-  cout << "Gast test passed" << endl;
+  cout << "Gast test PASSED" << endl;
   // END GAST TEST
 
   // BEGIN FRAC TEST
   assert(fabs(Frac(3.14) - 0.14) < pow(10, -12));
-  cout << "Frac test passed" << endl;
+  cout << "Frac test PASSED" << endl;
   // END FRAC TEST
 
   // BEGIN EQNEQUINOX TEST
   assert(fabs(EqnEquinox(3.14) - 2.500754323404229e-05) < pow(10, -12));
-  cout << "EqnEquinox test passed" << endl;
+  cout << "EqnEquinox test PASSED" << endl;
   // END EQNEQUINOX TEST
 
   // BEGIN GMST TEST
   assert(fabs(gmst(3.14) - 1.906870855800322) < pow(10, -12));
-  cout << "Gmst test passed" << endl;
+  cout << "Gmst test PASSED" << endl;
   // END GMST TEST
 
   // BEGIN GHAMATRIX TEST
@@ -479,7 +479,7 @@ int main() {
     delete[] ghamatTest[i];
   }
   delete[] ghamatTest;
-  cout << "GHAMatrix test passed" << endl;
+  cout << "GHAMatrix test PASSED" << endl;
   // END GHAMATRIX TEST
 
   // BEGIN DOUBLER TEST
@@ -532,7 +532,7 @@ int main() {
     assert(fabs(r3[i] - r3Res[i]) < pow(10, -8));
   }
 
-  cout << "Doubler test passed" << endl;
+  cout << "Doubler test PASSED" << endl;
   delete[] r2;
   delete[] r3;
   delete[] v1;
@@ -578,12 +578,12 @@ int main() {
   delete[] rsite1Test;
   delete[] rsite2Test;
   delete[] rsite3Test;
-  cout << "Anglesdr test passed" << endl;
+  cout << "Anglesdr test PASSED" << endl;
   // END ANGLESDR TEST
 
   // BEGIN SIGN TEST
   assert(fabs(sign_(3.14, 2.78) - 3.14) < pow(10, -12));
-  cout << "Sign test passed" << endl;
+  cout << "Sign test PASSED" << endl;
   // END SIGN TEST
 
   // BEGIN TIMEUPDATE TEST
@@ -616,7 +616,7 @@ int main() {
   }
   delete[] pTest;
   delete[] phiTest;
-  cout << "TimeUpdate test passed" << endl;
+  cout << "TimeUpdate test PASSED" << endl;
   // END TIMEUPDATE TEST
 
   // BEGIN AZELPA TEST
@@ -642,7 +642,7 @@ int main() {
   delete[] sTest;
   delete[] AdsTest;
   delete[] EdsTest;
-  cout << "AzElPa test passed" << endl;
+  cout << "AzElPa test PASSED" << endl;
   // END AZELPA TEST
 
   // BEGIN MEASUPDATE TEST
@@ -723,7 +723,7 @@ int main() {
   delete[] GTest;
   delete[] PMTest;
   delete[] KTest;
-  cout << "MeasUpdate test passed" << endl;
+  cout << "MeasUpdate test PASSED" << endl;
   // END MEASUPDATE TEST
 
   // BEGIN LEGENDRE TEST
@@ -767,7 +767,7 @@ int main() {
   }
   delete[] pnm;
   delete[] dpnm;
-  cout << "Legendre test passed" << endl;
+  cout << "Legendre test PASSED" << endl;
   // END LEGENDRE TEST
 
   // BEGIN ACCELHARMONIC TEST
@@ -801,7 +801,7 @@ int main() {
   delete[] atest;
   delete[] Etest;
 
-  cout << "AccelHarmonic test passed" << endl;
+  cout << "AccelHarmonic test PASSED" << endl;
   // END ACCELHARMONIC TEST
 
   // BEGIN ACCEL TEST
@@ -831,7 +831,7 @@ int main() {
   delete[] Ytest;
   delete[] dY;
 
-  cout << "Accel test passed" << endl;
+  cout << "Accel test PASSED" << endl;
   // END ACCEL TEST
 
   // BEGIN GACCELHARMONIC TEST
@@ -873,7 +873,7 @@ int main() {
   delete[] Gres;
   delete[] EtestG;
 
-  cout << "G_AccelHarmonic test passed" << endl;
+  cout << "G_AccelHarmonic test PASSED" << endl;
   // END GACCELHARMONIC TEST
 
   // BEGIN VAREQN TEST
@@ -931,7 +931,7 @@ int main() {
   delete[] yPhi;
   delete[] yPhip;
 
-  cout << "VarEqn test passed" << endl;
+  cout << "VarEqn test PASSED" << endl;
   // END VAREQN TEST
 
   // BEGIN DEINTEG TEST
@@ -961,9 +961,9 @@ int main() {
   deleteEOP();
   deleteCS();
 
-  cout << "DEInteg test passed" << endl;
+  cout << "DEInteg test PASSED" << endl;
   // END DEINTEG TEST
-  cout << "All test passed" << endl;
+  cout << "All test PASSED" << endl;
 
   return 0;
 }
