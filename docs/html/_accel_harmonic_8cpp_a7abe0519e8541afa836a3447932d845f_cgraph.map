@@ -1,0 +1,11 @@
+<map id="AccelHarmonic" name="AccelHarmonic">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,115,108"/>
+<area shape="rect" id="Node000002" href="$_legendre_8cpp.html#a8e527deac6ef5a8c8923036a1d11abac" title=" " alt="" coords="165,5,239,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,78,161,37,164,42,88,83"/>
+<area shape="rect" id="Node000003" href="$matrix_8cpp.html#ae9630093015299d6b24cd00ae6d1d1e7" title=" " alt="" coords="179,56,225,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="115,82,163,73,164,79,116,87"/>
+<area shape="rect" id="Node000004" href="$vector_8cpp.html#ae07b3ddb4109b7120117e49847dba397" title=" " alt="" coords="177,107,227,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="116,102,163,110,162,116,115,107"/>
+<area shape="rect" id="Node000005" href="$matrix_8cpp.html#a6935f724782e8d17282c7d5f6395e48c" title=" " alt="" coords="163,157,241,184"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="88,106,164,148,161,152,86,111"/>
+</map>

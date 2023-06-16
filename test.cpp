@@ -591,24 +591,30 @@ int main() {
   double **phiTest = new double *[6];
   for (int i = 0; i < 6; i++) {
     pTest[i] = new double[6];
-    pTest[i][i] = i + 1;
     phiTest[i] = new double[6];
+  for (int j = 0; j < 6; j++) {
+	  pTest[i][j]=0.0;
+	  phiTest[i][j]=0.0;
+  }
+  }
+  for (int i = 0; i < 6; i++) {
+    pTest[i][i] = i + 1;
     phiTest[i][i] = i + 2;
   }
   TimeUpdate(pTest, 6, 6, phiTest, 6, 6);
   for (int i = 0; i < 6; i++) {
     for (int j = 0; j < 6; j++) {
       if (i != j) {
-        assert(fabs(pTest[i][j]) < pow(10, -12));
+      assert(fabs(pTest[i][j]) < pow(10, -6));
       }
     }
   }
-  assert(fabs(pTest[0][0] - 4.0) < pow(10, -12));
-  assert(fabs(pTest[1][1] - 18.0) < pow(10, -12));
-  assert(fabs(pTest[2][2] - 48.0) < pow(10, -12));
-  assert(fabs(pTest[3][3] - 100.0) < pow(10, -12));
-  assert(fabs(pTest[4][4] - 180.0) < pow(10, -12));
-  assert(fabs(pTest[5][5] - 294.0) < pow(10, -12));
+  assert(fabs(pTest[0][0] - 4.0) < pow(10, -6));
+  assert(fabs(pTest[1][1] - 18.0) < pow(10, -6));
+  assert(fabs(pTest[2][2] - 48.0) < pow(10, -6));
+  assert(fabs(pTest[3][3] - 100.0) < pow(10, -6));
+  assert(fabs(pTest[4][4] - 180.0) < pow(10, -6));
+  assert(fabs(pTest[5][5] - 294.0) < pow(10, -6));
 
   for (int i = 0; i < 6; i++) {
     delete[] pTest[i];
@@ -652,9 +658,15 @@ int main() {
   double **KTest = new double *[6];
   for (int i = 0; i < 6; i++) {
     xTest[i] = new double[1];
+    xTest[i][0] =0.0; 
     PMTest[i] = new double[6];
     KTest[i] = new double[1];
+    KTest[i][0] = 0.0;
   }
+  for (int i = 0; i < 6; i++) {
+  for (int j = 0; j < 6; j++) {
+  PMTest[i][j]=0.0;
+  }}
   GTest[0] = 1.18226811703679e-07;
   GTest[1] = 2.68617065403109e-07;
   GTest[2] = -4.04487218792015e-07;

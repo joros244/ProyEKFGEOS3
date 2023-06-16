@@ -1,0 +1,16 @@
+<map id="dot" name="dot">
+<area shape="rect" id="Node000001" title=" " alt="" coords="334,81,374,108"/>
+<area shape="rect" id="Node000002" href="$anglesdr_8cpp.html#a5a211a076ba4a68002e328134379aafd" title=" " alt="" coords="103,56,173,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="319,93,173,76,174,71,320,88"/>
+<area shape="rect" id="Node000004" href="$_az_el_pa_8cpp.html#a4aed9949c9812951b9f343d55d3e2560" title=" " alt="" coords="221,5,286,32"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="322,74,271,35,274,30,325,70"/>
+<area shape="rect" id="Node000005" href="$doubler_8cpp.html#af197f166112b774e2907b23e8ac1c965" title=" " alt="" coords="222,107,285,133"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="320,106,286,115,285,109,319,101"/>
+<area shape="rect" id="Node000006" href="$test_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="113,132,163,159"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="331,121,311,136,287,148,254,155,220,157,163,153,163,147,220,152,253,150,285,143,308,131,328,116"/>
+<area shape="rect" id="Node000003" href="$_e_k_f___g_e_o_s3_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,55,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,60,55,52,56,47,89,55"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="207,27,55,44,55,39,206,21"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="207,103,169,86,171,81,209,98"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="208,133,163,143,162,137,207,127"/>
+</map>

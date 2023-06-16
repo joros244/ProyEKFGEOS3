@@ -1,0 +1,9 @@
+<map id="PoleMatrix" name="PoleMatrix">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,89,83"/>
+<area shape="rect" id="Node000002" href="$matrix_8cpp.html#ae9630093015299d6b24cd00ae6d1d1e7" title=" " alt="" coords="137,5,183,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,53,122,33,124,37,80,58"/>
+<area shape="rect" id="Node000003" href="$_r__x_8cpp.html#ab8a9d5f9e2cd82c883a79d7a5e24056b" title=" " alt="" coords="138,56,182,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="89,67,123,67,123,72,89,72"/>
+<area shape="rect" id="Node000004" href="$_r__y_8cpp.html#a9133ffa7565916274f69a3499723f025" title=" " alt="" coords="138,107,182,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="80,81,125,102,123,107,77,86"/>
+</map>

@@ -1,0 +1,703 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 40.00      0.06     0.06     2045     0.03     0.04  IERS(double**, double, double&, double&, double&, double&)
+ 20.00      0.09     0.03     7590     0.00     0.00  AccelHarmonic(double**, double**, int, int, double**)
+ 16.67      0.12     0.03 24708682     0.00     0.00  __gnu_cxx::__promote_2<int, int, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<int, int>(int, int)
+ 13.33      0.14     0.02                             _init
+  6.67      0.14     0.01      928     0.01     0.08  VarEqn(double, double**, double**)
+  3.33      0.15     0.01     1037     0.00     0.00  double const& std::min<double>(double const&, double const&)
+  0.00      0.15     0.00    32895     0.00     0.00  mult(double**, int, int, double**, int, int, double**)
+  0.00      0.15     0.00    16176     0.00     0.00  double**&& std::forward<double**>(std::remove_reference<double**>::type&)
+  0.00      0.15     0.00     8120     0.00     0.00  R_z(double, double**)
+  0.00      0.15     0.00     8088     0.00     0.00  double&& std::forward<double>(std::remove_reference<double>::type&)
+  0.00      0.15     0.00     7722     0.00     0.00  norm(double*, int)
+  0.00      0.15     0.00     7720     0.00     0.00  transpose(double**, double**, int, int)
+  0.00      0.15     0.00     7590     0.00     0.00  Legendre(int, int, double, double**, double**)
+  0.00      0.15     0.00     6255     0.00     0.00  mult3(double**, int, int, double**, int, int, double**, int, int, double**)
+  0.00      0.15     0.00     6075     0.00     0.00  R_x(double, double**)
+  0.00      0.15     0.00     4052     0.00     0.00  R_y(double, double**)
+  0.00      0.15     0.00     4050     0.00     0.00  MeanObliquity(double)
+  0.00      0.15     0.00     4050     0.00     0.00  NutAngles(double, double&, double&)
+  0.00      0.15     0.00     4044     0.00     0.00  void (*&std::forward<void (*&)(double, double**, double**)>(std::remove_reference<void (*&)(double, double**, double**)>::type&))(double, double**, double**)
+  0.00      0.15     0.00     2045     0.00     0.00  timediff(double, double, double&, double&, double&, double&, double&)
+  0.00      0.15     0.00     2043     0.00     0.00  Frac(double)
+  0.00      0.15     0.00     2043     0.00     0.00  gmst(double)
+  0.00      0.15     0.00     2025     0.00     0.00  EqnEquinox(double)
+  0.00      0.15     0.00     2025     0.00     0.00  PoleMatrix(double, double, double**)
+  0.00      0.15     0.00     2025     0.00     0.00  PrecMatrix(double, double, double**)
+  0.00      0.15     0.00     2025     0.00     0.00  gast(double)
+  0.00      0.15     0.00     2025     0.00     0.00  GHAMatrix(double, double**)
+  0.00      0.15     0.00     2025     0.00     0.00  NutMatrix(double, double**)
+  0.00      0.15     0.00     2022     0.00     0.00  std::_Function_base::_M_empty() const
+  0.00      0.15     0.00     2022     0.00     0.06  std::function<void (double, double**, double**)>::operator()(double, double**, double**) const
+  0.00      0.15     0.00     2022     0.00     0.00  std::_Any_data::_M_access() const
+  0.00      0.15     0.00     2022     0.00     0.00  void (* const&std::_Any_data::_M_access<void (*)(double, double**, double**)>() const)(double, double**, double**)
+  0.00      0.15     0.00     2022     0.00     0.00  std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_get_pointer(std::_Any_data const&)
+  0.00      0.15     0.00     2022     0.00     0.06  std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&)
+  0.00      0.15     0.00     2022     0.00     0.06  std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&)
+  0.00      0.15     0.00     2022     0.00     0.00  void (* const*std::__addressof<void (* const)(double, double**, double**)>(void (* const&)(double, double**, double**)))(double, double**, double**)
+  0.00      0.15     0.00     2022     0.00     0.06  void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&)
+  0.00      0.15     0.00     1106     0.00     0.00  sign_(double, double)
+  0.00      0.15     0.00     1094     0.00     0.05  Accel(double, double**, double**)
+  0.00      0.15     0.00     1030     0.00     0.00  double const& std::max<double>(double const&, double const&)
+  0.00      0.15     0.00      928     0.00     0.02  G_AccelHarmonic(double**, double**, int, int, double**)
+  0.00      0.15     0.00      148     0.00     0.00  dot(double*, int, double*, int)
+  0.00      0.15     0.00      114     0.00     0.00  void (*&&std::forward<void (*)(double, double**, double**)>(std::remove_reference<void (*)(double, double**, double**)>::type&))(double, double**, double**)
+  0.00      0.15     0.00       76     0.00     0.00  std::_Any_data::_M_access()
+  0.00      0.15     0.00       66     0.00     0.00  cross(double*, double*, double*)
+  0.00      0.15     0.00       54     0.00     0.00  MeasUpdate(double**, double, double, double, double*, double**, int, double**)
+  0.00      0.15     0.00       54     0.00     0.00  inverMat(double**, int, int, double**)
+  0.00      0.15     0.00       38     0.00     3.40  DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**)
+  0.00      0.15     0.00       38     0.00     0.00  std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_destroy(std::_Any_data&, std::integral_constant<bool, true>)
+  0.00      0.15     0.00       38     0.00     0.00  std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation)
+  0.00      0.15     0.00       38     0.00     0.00  void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_init_functor<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**))
+  0.00      0.15     0.00       38     0.00     0.00  bool std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_not_empty_function<void (double, double**, double**)>(void (*)(double, double**, double**))
+  0.00      0.15     0.00       38     0.00     0.00  void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_create<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**), std::integral_constant<bool, true>)
+  0.00      0.15     0.00       38     0.00     0.00  std::_Function_base::_Function_base()
+  0.00      0.15     0.00       38     0.00     0.00  std::_Function_base::~_Function_base()
+  0.00      0.15     0.00       38     0.00     0.00  std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation)
+  0.00      0.15     0.00       38     0.00     0.00  std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**))
+  0.00      0.15     0.00       38     0.00     0.00  std::function<void (double, double**, double**)>::~function()
+  0.00      0.15     0.00       38     0.00     0.00  void (*&std::_Any_data::_M_access<void (*)(double, double**, double**)>())(double, double**, double**)
+  0.00      0.15     0.00       38     0.00     0.00  operator new(unsigned long, void*)
+  0.00      0.15     0.00       36     0.00     0.00  AzElPa(double*, double&, double&, double*, double*)
+  0.00      0.15     0.00       22     0.00     0.00  doubler(double, double, double, double, double, double, double*, double*, double*, double*, double*, double*, double, double, char, double*, double*, double&, double&, double&, double&, double&, double&, double&)
+  0.00      0.15     0.00       19     0.00     0.00  mjday(int, int, int, int, int, double)
+  0.00      0.15     0.00       18     0.00     0.00  TimeUpdate(double**, int, int, double**, int, int, double**, int, int)
+  0.00      0.15     0.00        2     0.00     0.00  LTC(double, double, double**)
+  0.00      0.15     0.00        2     0.00     0.00  bool __gnu_cxx::__is_null_pointer<char const>(char const*)
+  0.00      0.15     0.00        2     0.00     0.00  std::char_traits<char>::length(char const*)
+  0.00      0.15     0.00        2     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  0.00      0.15     0.00        2     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  0.00      0.15     0.00        2     0.00     0.00  std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  0.00      0.15     0.00        2     0.00     0.00  std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  0.00      0.15     0.00        2     0.00     0.00  std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+  0.00      0.15     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.15     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.15     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.15     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.15     0.00        1     0.00     0.00  loadCS(char const*)
+  0.00      0.15     0.00        1     0.00     0.00  loadEOP(char const*)
+  0.00      0.15     0.00        1     0.00     0.00  Geodetic(double*, double&, double&, double&)
+  0.00      0.15     0.00        1     0.00     0.12  anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*)
+  0.00      0.15     0.00        1     0.00     0.00  deleteCS()
+  0.00      0.15     0.00        1     0.00     0.00  position(double, double, double, double*)
+  0.00      0.15     0.00        1     0.00     0.00  deleteEOP()
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 6.67% of 0.15 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     86.7    0.00    0.13                 main [1]
+                0.00    0.13      38/38          DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [2]
+                0.00    0.00      20/2045        IERS(double**, double, double&, double&, double&, double&) [7]
+                0.00    0.00       1/1           anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00     108/32895       mult(double**, int, int, double**, int, int, double**) [22]
+                0.00    0.00      54/7720        transpose(double**, double**, int, int) [27]
+                0.00    0.00      54/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+                0.00    0.00      54/54          MeasUpdate(double**, double, double, double, double*, double**, int, double**) [55]
+                0.00    0.00      38/38          std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**)) [65]
+                0.00    0.00      38/38          std::function<void (double, double**, double**)>::~function() [66]
+                0.00    0.00      36/36          AzElPa(double*, double&, double&, double*, double*) [69]
+                0.00    0.00      20/2045        timediff(double, double, double&, double&, double&, double&, double&) [35]
+                0.00    0.00      19/19          mjday(int, int, int, int, int, double) [71]
+                0.00    0.00      18/2043        gmst(double) [37]
+                0.00    0.00      18/8120        R_z(double, double**) [24]
+                0.00    0.00      18/18          TimeUpdate(double**, int, int, double**, int, int, double**, int, int) [72]
+                0.00    0.00      18/7722        norm(double*, int) [26]
+                0.00    0.00       2/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [77]
+                0.00    0.00       1/1           loadEOP(char const*) [86]
+                0.00    0.00       1/1           loadCS(char const*) [85]
+                0.00    0.00       1/1           position(double, double, double, double*) [89]
+                0.00    0.00       1/2           LTC(double, double, double**) [73]
+                0.00    0.00       1/1           deleteCS() [88]
+                0.00    0.00       1/1           deleteEOP() [90]
+-----------------------------------------------
+                0.00    0.13      38/38          main [1]
+[2]     86.0    0.00    0.13      38         DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [2]
+                0.00    0.12    2022/2022        std::function<void (double, double**, double**)>::operator()(double, double**, double**) const [3]
+                0.01    0.00    1037/1037        double const& std::min<double>(double const&, double const&) [14]
+                0.00    0.00     992/24708682     __gnu_cxx::__promote_2<int, int, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<int, int>(int, int) [11]
+                0.00    0.00    1106/1106        sign_(double, double) [49]
+                0.00    0.00    1030/1030        double const& std::max<double>(double const&, double const&) [50]
+-----------------------------------------------
+                0.00    0.12    2022/2022        DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [2]
+[3]     82.7    0.00    0.12    2022         std::function<void (double, double**, double**)>::operator()(double, double**, double**) const [3]
+                0.00    0.12    2022/2022        std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&) [4]
+                0.00    0.00    4044/16176       double**&& std::forward<double**>(std::remove_reference<double**>::type&) [23]
+                0.00    0.00    2022/2022        std::_Function_base::_M_empty() const [44]
+                0.00    0.00    2022/8088        double&& std::forward<double>(std::remove_reference<double>::type&) [25]
+-----------------------------------------------
+                0.00    0.12    2022/2022        std::function<void (double, double**, double**)>::operator()(double, double**, double**) const [3]
+[4]     82.7    0.00    0.12    2022         std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&) [4]
+                0.00    0.12    2022/2022        std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&) [5]
+                0.00    0.00    4044/16176       double**&& std::forward<double**>(std::remove_reference<double**>::type&) [23]
+                0.00    0.00    2022/8088        double&& std::forward<double>(std::remove_reference<double>::type&) [25]
+                0.00    0.00    2022/2022        std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_get_pointer(std::_Any_data const&) [47]
+-----------------------------------------------
+                0.00    0.12    2022/2022        std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&) [4]
+[5]     82.7    0.00    0.12    2022         std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&) [5]
+                0.00    0.12    2022/2022        void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&) [6]
+                0.00    0.00    4044/16176       double**&& std::forward<double**>(std::remove_reference<double**>::type&) [23]
+                0.00    0.00    2022/8088        double&& std::forward<double>(std::remove_reference<double>::type&) [25]
+                0.00    0.00    2022/4044        void (*&std::forward<void (*&)(double, double**, double**)>(std::remove_reference<void (*&)(double, double**, double**)>::type&))(double, double**, double**) [34]
+-----------------------------------------------
+                0.00    0.12    2022/2022        std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&) [5]
+[6]     82.7    0.00    0.12    2022         void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&) [6]
+                0.01    0.06     928/928         VarEqn(double, double**, double**) [8]
+                0.00    0.05    1094/1094        Accel(double, double**, double**) [9]
+                0.00    0.00    4044/16176       double**&& std::forward<double**>(std::remove_reference<double**>::type&) [23]
+                0.00    0.00    2022/4044        void (*&std::forward<void (*&)(double, double**, double**)>(std::remove_reference<void (*&)(double, double**, double**)>::type&))(double, double**, double**) [34]
+                0.00    0.00    2022/8088        double&& std::forward<double>(std::remove_reference<double>::type&) [25]
+-----------------------------------------------
+                0.00    0.00       3/2045        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00      20/2045        main [1]
+                0.03    0.01     928/2045        VarEqn(double, double**, double**) [8]
+                0.03    0.01    1094/2045        Accel(double, double**, double**) [9]
+[7]     56.7    0.06    0.02    2045         IERS(double**, double, double&, double&, double&, double&) [7]
+                0.02    0.00 24707690/24708682     __gnu_cxx::__promote_2<int, int, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<int, int>(int, int) [11]
+-----------------------------------------------
+                0.01    0.06     928/928         void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&) [6]
+[8]     49.5    0.01    0.06     928         VarEqn(double, double**, double**) [8]
+                0.03    0.01     928/2045        IERS(double**, double, double&, double&, double&, double&) [7]
+                0.00    0.02     928/928         G_AccelHarmonic(double**, double**, int, int, double**) [12]
+                0.00    0.00     928/7590        AccelHarmonic(double**, double**, int, int, double**) [10]
+                0.00    0.00    1856/32895       mult(double**, int, int, double**, int, int, double**) [22]
+                0.00    0.00     928/2045        timediff(double, double, double&, double&, double&, double&, double&) [35]
+                0.00    0.00     928/2025        PrecMatrix(double, double, double**) [40]
+                0.00    0.00     928/2025        NutMatrix(double, double**) [43]
+                0.00    0.00     928/2025        PoleMatrix(double, double, double**) [39]
+                0.00    0.00     928/2025        GHAMatrix(double, double**) [42]
+                0.00    0.00     928/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+-----------------------------------------------
+                0.00    0.05    1094/1094        void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&) [6]
+[9]     33.2    0.00    0.05    1094         Accel(double, double**, double**) [9]
+                0.03    0.01    1094/2045        IERS(double**, double, double&, double&, double&, double&) [7]
+                0.00    0.00    1094/7590        AccelHarmonic(double**, double**, int, int, double**) [10]
+                0.00    0.00    1094/2045        timediff(double, double, double&, double&, double&, double&, double&) [35]
+                0.00    0.00    1094/2025        PrecMatrix(double, double, double**) [40]
+                0.00    0.00    1094/2025        NutMatrix(double, double**) [43]
+                0.00    0.00    1094/32895       mult(double**, int, int, double**, int, int, double**) [22]
+                0.00    0.00    1094/2025        PoleMatrix(double, double, double**) [39]
+                0.00    0.00    1094/2025        GHAMatrix(double, double**) [42]
+                0.00    0.00    1094/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+-----------------------------------------------
+                0.00    0.00     928/7590        VarEqn(double, double**, double**) [8]
+                0.00    0.00    1094/7590        Accel(double, double**, double**) [9]
+                0.02    0.00    5568/7590        G_AccelHarmonic(double**, double**, int, int, double**) [12]
+[10]    20.0    0.03    0.00    7590         AccelHarmonic(double**, double**, int, int, double**) [10]
+                0.00    0.00   15180/32895       mult(double**, int, int, double**, int, int, double**) [22]
+                0.00    0.00    7590/7722        norm(double*, int) [26]
+                0.00    0.00    7590/7590        Legendre(int, int, double, double**, double**) [28]
+                0.00    0.00    7590/7720        transpose(double**, double**, int, int) [27]
+-----------------------------------------------
+                0.00    0.00     992/24708682     DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [2]
+                0.02    0.00 24707690/24708682     IERS(double**, double, double&, double&, double&, double&) [7]
+[11]    16.7    0.03    0.00 24708682         __gnu_cxx::__promote_2<int, int, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<int, int>(int, int) [11]
+-----------------------------------------------
+                0.00    0.02     928/928         VarEqn(double, double**, double**) [8]
+[12]    14.7    0.00    0.02     928         G_AccelHarmonic(double**, double**, int, int, double**) [12]
+                0.02    0.00    5568/7590        AccelHarmonic(double**, double**, int, int, double**) [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[13]    13.3    0.02    0.00                 _init [13]
+-----------------------------------------------
+                0.01    0.00    1037/1037        DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [2]
+[14]     3.3    0.01    0.00    1037         double const& std::min<double>(double const&, double const&) [14]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[15]     0.1    0.00    0.00       1         anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00       3/2045        IERS(double**, double, double&, double&, double&, double&) [7]
+                0.00    0.00      22/22          doubler(double, double, double, double, double, double, double*, double*, double*, double*, double*, double*, double, double, char, double*, double*, double&, double&, double&, double&, double&, double&, double&) [70]
+                0.00    0.00      12/32895       mult(double**, int, int, double**, int, int, double**) [22]
+                0.00    0.00       4/7720        transpose(double**, double**, int, int) [27]
+                0.00    0.00       3/2045        timediff(double, double, double&, double&, double&, double&, double&) [35]
+                0.00    0.00       3/2025        PrecMatrix(double, double, double**) [40]
+                0.00    0.00       3/2025        NutMatrix(double, double**) [43]
+                0.00    0.00       3/2025        PoleMatrix(double, double, double**) [39]
+                0.00    0.00       3/2025        GHAMatrix(double, double**) [42]
+                0.00    0.00       3/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+                0.00    0.00       3/7722        norm(double*, int) [26]
+                0.00    0.00       2/148         dot(double*, int, double*, int) [51]
+                0.00    0.00       1/1           Geodetic(double*, double&, double&, double&) [87]
+                0.00    0.00       1/2           LTC(double, double, double**) [73]
+-----------------------------------------------
+                0.00    0.00       2/32895       LTC(double, double, double**) [73]
+                0.00    0.00      12/32895       anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00     108/32895       MeasUpdate(double**, double, double, double, double*, double**, int, double**) [55]
+                0.00    0.00     108/32895       main [1]
+                0.00    0.00    1094/32895       Accel(double, double**, double**) [9]
+                0.00    0.00    1856/32895       VarEqn(double, double**, double**) [8]
+                0.00    0.00    2025/32895       PoleMatrix(double, double, double**) [39]
+                0.00    0.00   12510/32895       mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+                0.00    0.00   15180/32895       AccelHarmonic(double**, double**, int, int, double**) [10]
+[22]     0.0    0.00    0.00   32895         mult(double**, int, int, double**, int, int, double**) [22]
+-----------------------------------------------
+                0.00    0.00    4044/16176       std::function<void (double, double**, double**)>::operator()(double, double**, double**) const [3]
+                0.00    0.00    4044/16176       std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&) [4]
+                0.00    0.00    4044/16176       std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&) [5]
+                0.00    0.00    4044/16176       void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&) [6]
+[23]     0.0    0.00    0.00   16176         double**&& std::forward<double**>(std::remove_reference<double**>::type&) [23]
+-----------------------------------------------
+                0.00    0.00       2/8120        LTC(double, double, double**) [73]
+                0.00    0.00      18/8120        main [1]
+                0.00    0.00    2025/8120        GHAMatrix(double, double**) [42]
+                0.00    0.00    2025/8120        NutMatrix(double, double**) [43]
+                0.00    0.00    4050/8120        PrecMatrix(double, double, double**) [40]
+[24]     0.0    0.00    0.00    8120         R_z(double, double**) [24]
+-----------------------------------------------
+                0.00    0.00    2022/8088        std::function<void (double, double**, double**)>::operator()(double, double**, double**) const [3]
+                0.00    0.00    2022/8088        std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&) [4]
+                0.00    0.00    2022/8088        std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&) [5]
+                0.00    0.00    2022/8088        void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&) [6]
+[25]     0.0    0.00    0.00    8088         double&& std::forward<double>(std::remove_reference<double>::type&) [25]
+-----------------------------------------------
+                0.00    0.00       1/7722        Geodetic(double*, double&, double&, double&) [87]
+                0.00    0.00       3/7722        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00      18/7722        main [1]
+                0.00    0.00     110/7722        doubler(double, double, double, double, double, double, double*, double*, double*, double*, double*, double*, double, double, char, double*, double*, double&, double&, double&, double&, double&, double&, double&) [70]
+                0.00    0.00    7590/7722        AccelHarmonic(double**, double**, int, int, double**) [10]
+[26]     0.0    0.00    0.00    7722         norm(double*, int) [26]
+-----------------------------------------------
+                0.00    0.00       4/7720        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00      18/7720        TimeUpdate(double**, int, int, double**, int, int, double**, int, int) [72]
+                0.00    0.00      54/7720        MeasUpdate(double**, double, double, double, double*, double**, int, double**) [55]
+                0.00    0.00      54/7720        main [1]
+                0.00    0.00    7590/7720        AccelHarmonic(double**, double**, int, int, double**) [10]
+[27]     0.0    0.00    0.00    7720         transpose(double**, double**, int, int) [27]
+-----------------------------------------------
+                0.00    0.00    7590/7590        AccelHarmonic(double**, double**, int, int, double**) [10]
+[28]     0.0    0.00    0.00    7590         Legendre(int, int, double, double**, double**) [28]
+-----------------------------------------------
+                0.00    0.00       3/6255        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00      18/6255        TimeUpdate(double**, int, int, double**, int, int, double**, int, int) [72]
+                0.00    0.00      54/6255        main [1]
+                0.00    0.00     108/6255        MeasUpdate(double**, double, double, double, double*, double**, int, double**) [55]
+                0.00    0.00     928/6255        VarEqn(double, double**, double**) [8]
+                0.00    0.00    1094/6255        Accel(double, double**, double**) [9]
+                0.00    0.00    2025/6255        NutMatrix(double, double**) [43]
+                0.00    0.00    2025/6255        PrecMatrix(double, double, double**) [40]
+[29]     0.0    0.00    0.00    6255         mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+                0.00    0.00   12510/32895       mult(double**, int, int, double**, int, int, double**) [22]
+-----------------------------------------------
+                0.00    0.00    2025/6075        PoleMatrix(double, double, double**) [39]
+                0.00    0.00    4050/6075        NutMatrix(double, double**) [43]
+[30]     0.0    0.00    0.00    6075         R_x(double, double**) [30]
+-----------------------------------------------
+                0.00    0.00       2/4052        LTC(double, double, double**) [73]
+                0.00    0.00    2025/4052        PoleMatrix(double, double, double**) [39]
+                0.00    0.00    2025/4052        PrecMatrix(double, double, double**) [40]
+[31]     0.0    0.00    0.00    4052         R_y(double, double**) [31]
+-----------------------------------------------
+                0.00    0.00    2025/4050        EqnEquinox(double) [38]
+                0.00    0.00    2025/4050        NutMatrix(double, double**) [43]
+[32]     0.0    0.00    0.00    4050         MeanObliquity(double) [32]
+-----------------------------------------------
+                0.00    0.00    2025/4050        EqnEquinox(double) [38]
+                0.00    0.00    2025/4050        NutMatrix(double, double**) [43]
+[33]     0.0    0.00    0.00    4050         NutAngles(double, double&, double&) [33]
+-----------------------------------------------
+                0.00    0.00    2022/4044        std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&) [5]
+                0.00    0.00    2022/4044        void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&) [6]
+[34]     0.0    0.00    0.00    4044         void (*&std::forward<void (*&)(double, double**, double**)>(std::remove_reference<void (*&)(double, double**, double**)>::type&))(double, double**, double**) [34]
+-----------------------------------------------
+                0.00    0.00       3/2045        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00      20/2045        main [1]
+                0.00    0.00     928/2045        VarEqn(double, double**, double**) [8]
+                0.00    0.00    1094/2045        Accel(double, double**, double**) [9]
+[35]     0.0    0.00    0.00    2045         timediff(double, double, double&, double&, double&, double&, double&) [35]
+-----------------------------------------------
+                0.00    0.00    2043/2043        gmst(double) [37]
+[36]     0.0    0.00    0.00    2043         Frac(double) [36]
+-----------------------------------------------
+                0.00    0.00      18/2043        main [1]
+                0.00    0.00    2025/2043        gast(double) [41]
+[37]     0.0    0.00    0.00    2043         gmst(double) [37]
+                0.00    0.00    2043/2043        Frac(double) [36]
+-----------------------------------------------
+                0.00    0.00    2025/2025        gast(double) [41]
+[38]     0.0    0.00    0.00    2025         EqnEquinox(double) [38]
+                0.00    0.00    2025/4050        NutAngles(double, double&, double&) [33]
+                0.00    0.00    2025/4050        MeanObliquity(double) [32]
+-----------------------------------------------
+                0.00    0.00       3/2025        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00     928/2025        VarEqn(double, double**, double**) [8]
+                0.00    0.00    1094/2025        Accel(double, double**, double**) [9]
+[39]     0.0    0.00    0.00    2025         PoleMatrix(double, double, double**) [39]
+                0.00    0.00    2025/4052        R_y(double, double**) [31]
+                0.00    0.00    2025/6075        R_x(double, double**) [30]
+                0.00    0.00    2025/32895       mult(double**, int, int, double**, int, int, double**) [22]
+-----------------------------------------------
+                0.00    0.00       3/2025        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00     928/2025        VarEqn(double, double**, double**) [8]
+                0.00    0.00    1094/2025        Accel(double, double**, double**) [9]
+[40]     0.0    0.00    0.00    2025         PrecMatrix(double, double, double**) [40]
+                0.00    0.00    4050/8120        R_z(double, double**) [24]
+                0.00    0.00    2025/4052        R_y(double, double**) [31]
+                0.00    0.00    2025/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+-----------------------------------------------
+                0.00    0.00    2025/2025        GHAMatrix(double, double**) [42]
+[41]     0.0    0.00    0.00    2025         gast(double) [41]
+                0.00    0.00    2025/2043        gmst(double) [37]
+                0.00    0.00    2025/2025        EqnEquinox(double) [38]
+-----------------------------------------------
+                0.00    0.00       3/2025        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00     928/2025        VarEqn(double, double**, double**) [8]
+                0.00    0.00    1094/2025        Accel(double, double**, double**) [9]
+[42]     0.0    0.00    0.00    2025         GHAMatrix(double, double**) [42]
+                0.00    0.00    2025/2025        gast(double) [41]
+                0.00    0.00    2025/8120        R_z(double, double**) [24]
+-----------------------------------------------
+                0.00    0.00       3/2025        anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00     928/2025        VarEqn(double, double**, double**) [8]
+                0.00    0.00    1094/2025        Accel(double, double**, double**) [9]
+[43]     0.0    0.00    0.00    2025         NutMatrix(double, double**) [43]
+                0.00    0.00    4050/6075        R_x(double, double**) [30]
+                0.00    0.00    2025/4050        MeanObliquity(double) [32]
+                0.00    0.00    2025/4050        NutAngles(double, double&, double&) [33]
+                0.00    0.00    2025/8120        R_z(double, double**) [24]
+                0.00    0.00    2025/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+-----------------------------------------------
+                0.00    0.00    2022/2022        std::function<void (double, double**, double**)>::operator()(double, double**, double**) const [3]
+[44]     0.0    0.00    0.00    2022         std::_Function_base::_M_empty() const [44]
+-----------------------------------------------
+                0.00    0.00    2022/2022        void (* const&std::_Any_data::_M_access<void (*)(double, double**, double**)>() const)(double, double**, double**) [46]
+[45]     0.0    0.00    0.00    2022         std::_Any_data::_M_access() const [45]
+-----------------------------------------------
+                0.00    0.00    2022/2022        std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_get_pointer(std::_Any_data const&) [47]
+[46]     0.0    0.00    0.00    2022         void (* const&std::_Any_data::_M_access<void (*)(double, double**, double**)>() const)(double, double**, double**) [46]
+                0.00    0.00    2022/2022        std::_Any_data::_M_access() const [45]
+-----------------------------------------------
+                0.00    0.00    2022/2022        std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&) [4]
+[47]     0.0    0.00    0.00    2022         std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_get_pointer(std::_Any_data const&) [47]
+                0.00    0.00    2022/2022        void (* const&std::_Any_data::_M_access<void (*)(double, double**, double**)>() const)(double, double**, double**) [46]
+                0.00    0.00    2022/2022        void (* const*std::__addressof<void (* const)(double, double**, double**)>(void (* const&)(double, double**, double**)))(double, double**, double**) [48]
+-----------------------------------------------
+                0.00    0.00    2022/2022        std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_get_pointer(std::_Any_data const&) [47]
+[48]     0.0    0.00    0.00    2022         void (* const*std::__addressof<void (* const)(double, double**, double**)>(void (* const&)(double, double**, double**)))(double, double**, double**) [48]
+-----------------------------------------------
+                0.00    0.00    1106/1106        DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [2]
+[49]     0.0    0.00    0.00    1106         sign_(double, double) [49]
+-----------------------------------------------
+                0.00    0.00    1030/1030        DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [2]
+[50]     0.0    0.00    0.00    1030         double const& std::max<double>(double const&, double const&) [50]
+-----------------------------------------------
+                0.00    0.00       2/148         anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00      36/148         AzElPa(double*, double&, double&, double*, double*) [69]
+                0.00    0.00     110/148         doubler(double, double, double, double, double, double, double*, double*, double*, double*, double*, double*, double, double, char, double*, double*, double&, double&, double&, double&, double&, double&, double&) [70]
+[51]     0.0    0.00    0.00     148         dot(double*, int, double*, int) [51]
+-----------------------------------------------
+                0.00    0.00      38/114         std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**)) [65]
+                0.00    0.00      38/114         void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_init_functor<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**)) [59]
+                0.00    0.00      38/114         void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_create<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**), std::integral_constant<bool, true>) [61]
+[52]     0.0    0.00    0.00     114         void (*&&std::forward<void (*)(double, double**, double**)>(std::remove_reference<void (*)(double, double**, double**)>::type&))(double, double**, double**) [52]
+-----------------------------------------------
+                0.00    0.00      38/76          void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_create<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**), std::integral_constant<bool, true>) [61]
+                0.00    0.00      38/76          void (*&std::_Any_data::_M_access<void (*)(double, double**, double**)>())(double, double**, double**) [67]
+[53]     0.0    0.00    0.00      76         std::_Any_data::_M_access() [53]
+-----------------------------------------------
+                0.00    0.00      66/66          doubler(double, double, double, double, double, double, double*, double*, double*, double*, double*, double*, double, double, char, double*, double*, double&, double&, double&, double&, double&, double&, double&) [70]
+[54]     0.0    0.00    0.00      66         cross(double*, double*, double*) [54]
+-----------------------------------------------
+                0.00    0.00      54/54          main [1]
+[55]     0.0    0.00    0.00      54         MeasUpdate(double**, double, double, double, double*, double**, int, double**) [55]
+                0.00    0.00     108/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+                0.00    0.00     108/32895       mult(double**, int, int, double**, int, int, double**) [22]
+                0.00    0.00      54/7720        transpose(double**, double**, int, int) [27]
+                0.00    0.00      54/54          inverMat(double**, int, int, double**) [56]
+-----------------------------------------------
+                0.00    0.00      54/54          MeasUpdate(double**, double, double, double, double*, double**, int, double**) [55]
+[56]     0.0    0.00    0.00      54         inverMat(double**, int, int, double**) [56]
+-----------------------------------------------
+                0.00    0.00      38/38          std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [58]
+[57]     0.0    0.00    0.00      38         std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_destroy(std::_Any_data&, std::integral_constant<bool, true>) [57]
+                0.00    0.00      38/38          void (*&std::_Any_data::_M_access<void (*)(double, double**, double**)>())(double, double**, double**) [67]
+-----------------------------------------------
+                0.00    0.00      38/38          std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [64]
+[58]     0.0    0.00    0.00      38         std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [58]
+                0.00    0.00      38/38          std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_destroy(std::_Any_data&, std::integral_constant<bool, true>) [57]
+-----------------------------------------------
+                0.00    0.00      38/38          std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**)) [65]
+[59]     0.0    0.00    0.00      38         void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_init_functor<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**)) [59]
+                0.00    0.00      38/114         void (*&&std::forward<void (*)(double, double**, double**)>(std::remove_reference<void (*)(double, double**, double**)>::type&))(double, double**, double**) [52]
+                0.00    0.00      38/38          void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_create<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**), std::integral_constant<bool, true>) [61]
+-----------------------------------------------
+                0.00    0.00      38/38          std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**)) [65]
+[60]     0.0    0.00    0.00      38         bool std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_not_empty_function<void (double, double**, double**)>(void (*)(double, double**, double**)) [60]
+-----------------------------------------------
+                0.00    0.00      38/38          void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_init_functor<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**)) [59]
+[61]     0.0    0.00    0.00      38         void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_create<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**), std::integral_constant<bool, true>) [61]
+                0.00    0.00      38/114         void (*&&std::forward<void (*)(double, double**, double**)>(std::remove_reference<void (*)(double, double**, double**)>::type&))(double, double**, double**) [52]
+                0.00    0.00      38/76          std::_Any_data::_M_access() [53]
+                0.00    0.00      38/38          operator new(unsigned long, void*) [68]
+-----------------------------------------------
+                0.00    0.00      38/38          std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**)) [65]
+[62]     0.0    0.00    0.00      38         std::_Function_base::_Function_base() [62]
+-----------------------------------------------
+                0.00    0.00      38/38          std::function<void (double, double**, double**)>::~function() [66]
+[63]     0.0    0.00    0.00      38         std::_Function_base::~_Function_base() [63]
+                0.00    0.00      38/38          std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [64]
+-----------------------------------------------
+                0.00    0.00      38/38          std::_Function_base::~_Function_base() [63]
+[64]     0.0    0.00    0.00      38         std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [64]
+                0.00    0.00      38/38          std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [58]
+-----------------------------------------------
+                0.00    0.00      38/38          main [1]
+[65]     0.0    0.00    0.00      38         std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**)) [65]
+                0.00    0.00      38/38          std::_Function_base::_Function_base() [62]
+                0.00    0.00      38/38          bool std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_not_empty_function<void (double, double**, double**)>(void (*)(double, double**, double**)) [60]
+                0.00    0.00      38/114         void (*&&std::forward<void (*)(double, double**, double**)>(std::remove_reference<void (*)(double, double**, double**)>::type&))(double, double**, double**) [52]
+                0.00    0.00      38/38          void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_init_functor<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**)) [59]
+-----------------------------------------------
+                0.00    0.00      38/38          main [1]
+[66]     0.0    0.00    0.00      38         std::function<void (double, double**, double**)>::~function() [66]
+                0.00    0.00      38/38          std::_Function_base::~_Function_base() [63]
+-----------------------------------------------
+                0.00    0.00      38/38          std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_destroy(std::_Any_data&, std::integral_constant<bool, true>) [57]
+[67]     0.0    0.00    0.00      38         void (*&std::_Any_data::_M_access<void (*)(double, double**, double**)>())(double, double**, double**) [67]
+                0.00    0.00      38/76          std::_Any_data::_M_access() [53]
+-----------------------------------------------
+                0.00    0.00      38/38          void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_create<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**), std::integral_constant<bool, true>) [61]
+[68]     0.0    0.00    0.00      38         operator new(unsigned long, void*) [68]
+-----------------------------------------------
+                0.00    0.00      36/36          main [1]
+[69]     0.0    0.00    0.00      36         AzElPa(double*, double&, double&, double*, double*) [69]
+                0.00    0.00      36/148         dot(double*, int, double*, int) [51]
+-----------------------------------------------
+                0.00    0.00      22/22          anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+[70]     0.0    0.00    0.00      22         doubler(double, double, double, double, double, double, double*, double*, double*, double*, double*, double*, double, double, char, double*, double*, double&, double&, double&, double&, double&, double&, double&) [70]
+                0.00    0.00     110/7722        norm(double*, int) [26]
+                0.00    0.00     110/148         dot(double*, int, double*, int) [51]
+                0.00    0.00      66/66          cross(double*, double*, double*) [54]
+-----------------------------------------------
+                0.00    0.00      19/19          main [1]
+[71]     0.0    0.00    0.00      19         mjday(int, int, int, int, int, double) [71]
+-----------------------------------------------
+                0.00    0.00      18/18          main [1]
+[72]     0.0    0.00    0.00      18         TimeUpdate(double**, int, int, double**, int, int, double**, int, int) [72]
+                0.00    0.00      18/7720        transpose(double**, double**, int, int) [27]
+                0.00    0.00      18/6255        mult3(double**, int, int, double**, int, int, double**, int, int, double**) [29]
+-----------------------------------------------
+                0.00    0.00       1/2           anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+                0.00    0.00       1/2           main [1]
+[73]     0.0    0.00    0.00       2         LTC(double, double, double**) [73]
+                0.00    0.00       2/4052        R_y(double, double**) [31]
+                0.00    0.00       2/8120        R_z(double, double**) [24]
+                0.00    0.00       2/32895       mult(double**, int, int, double**, int, int, double**) [22]
+-----------------------------------------------
+                0.00    0.00       2/2           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [76]
+[74]     0.0    0.00    0.00       2         bool __gnu_cxx::__is_null_pointer<char const>(char const*) [74]
+-----------------------------------------------
+                0.00    0.00       2/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [77]
+[75]     0.0    0.00    0.00       2         std::char_traits<char>::length(char const*) [75]
+-----------------------------------------------
+                0.00    0.00       2/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [77]
+[76]     0.0    0.00    0.00       2         void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [76]
+                0.00    0.00       2/2           bool __gnu_cxx::__is_null_pointer<char const>(char const*) [74]
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [80]
+-----------------------------------------------
+                0.00    0.00       2/2           main [1]
+[77]     0.0    0.00    0.00       2         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [77]
+                0.00    0.00       2/2           std::char_traits<char>::length(char const*) [75]
+                0.00    0.00       2/2           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [76]
+-----------------------------------------------
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [80]
+[78]     0.0    0.00    0.00       2         std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [78]
+-----------------------------------------------
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [80]
+[79]     0.0    0.00    0.00       2         std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [79]
+-----------------------------------------------
+                0.00    0.00       2/2           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [76]
+[80]     0.0    0.00    0.00       2         std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [80]
+                0.00    0.00       2/2           std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [79]
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [78]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z8GeodeticPdRdS0_S0_ [91]
+[81]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [81]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I_eopdata [93]
+[82]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [82]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z9transposePPdS0_ii [92]
+[83]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [83]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I_main [94]
+[84]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [84]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[85]     0.0    0.00    0.00       1         loadCS(char const*) [85]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[86]     0.0    0.00    0.00       1         loadEOP(char const*) [86]
+-----------------------------------------------
+                0.00    0.00       1/1           anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [15]
+[87]     0.0    0.00    0.00       1         Geodetic(double*, double&, double&, double&) [87]
+                0.00    0.00       1/7722        norm(double*, int) [26]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[88]     0.0    0.00    0.00       1         deleteCS() [88]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[89]     0.0    0.00    0.00       1         position(double, double, double, double*) [89]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[90]     0.0    0.00    0.00       1         deleteEOP() [90]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [38] EqnEquinox(double)     [69] AzElPa(double*, double&, double&, double*, double*) [60] bool std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_not_empty_function<void (double, double**, double**)>(void (*)(double, double**, double**))
+  [55] MeasUpdate(double**, double, double, double, double*, double**, int, double**) [8] VarEqn(double, double**, double**) [61] void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_create<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**), std::integral_constant<bool, true>)
+  [39] PoleMatrix(double, double, double**) [85] loadCS(char const*) [62] std::_Function_base::_Function_base()
+  [40] PrecMatrix(double, double, double**) [2] DEInteg(std::function<void (double, double**, double**)>, double, double, double, double, int, double**) [63] std::_Function_base::~_Function_base()
+  [72] TimeUpdate(double**, int, int, double**, int, int, double**, int, int) [70] doubler(double, double, double, double, double, double, double*, double*, double*, double*, double*, double*, double, double, char, double*, double*, double&, double&, double&, double&, double&, double&, double&) [64] std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation)
+  [10] AccelHarmonic(double**, double**, int, int, double**) [86] loadEOP(char const*) [4] std::_Function_handler<void (double, double**, double**), void (*)(double, double**, double**)>::_M_invoke(std::_Any_data const&, double&&, double**&&, double**&&)
+  [32] MeanObliquity(double)  [87] Geodetic(double*, double&, double&, double&) [76] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  [12] G_AccelHarmonic(double**, double**, int, int, double**) [28] Legendre(int, int, double, double**, double**) [77] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  [73] LTC(double, double, double**) [15] anglesdr(double**, double, double, double, double, double, double, double, double, double, double*, double*, double*, double*, double*) [65] std::function<void (double, double**, double**)>::function<void (*)(double, double**, double**), void>(void (*&&)(double, double**, double**))
+  [30] R_x(double, double**)  [88] deleteCS()             [66] std::function<void (double, double**, double**)>::~function()
+  [31] R_y(double, double**)  [56] inverMat(double**, int, int, double**) [53] std::_Any_data::_M_access()
+  [24] R_z(double, double**)  [89] position(double, double, double, double*) [67] void (*&std::_Any_data::_M_access<void (*)(double, double**, double**)>())(double, double**, double**)
+  [51] dot(double*, int, double*, int) [35] timediff(double, double, double&, double&, double&, double&, double&) [78] std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  [81] __static_initialization_and_destruction_0(int, int) [42] GHAMatrix(double, double**) [5] std::enable_if<is_invocable_r_v<void, void (*&)(double, double**, double**), double, double**, double**>, void>::type std::__invoke_r<void, void (*&)(double, double**, double**), double, double**, double**>(void (*&)(double, double**, double**), double&&, double**&&, double**&&)
+  [82] __static_initialization_and_destruction_0(int, int) [33] NutAngles(double, double&, double&) [48] void (* const*std::__addressof<void (* const)(double, double**, double**)>(void (* const&)(double, double**, double**)))(double, double**, double**)
+  [83] __static_initialization_and_destruction_0(int, int) [43] NutMatrix(double, double**) [6] void std::__invoke_impl<void, void (*&)(double, double**, double**), double, double**, double**>(std::__invoke_other, void (*&)(double, double**, double**), double&&, double**&&, double**&&)
+  [84] __static_initialization_and_destruction_0(int, int) [90] deleteEOP() [79] std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  [36] Frac(double)           [27] transpose(double**, double**, int, int) [50] double const& std::max<double>(double const&, double const&)
+   [7] IERS(double**, double, double&, double&, double&, double&) [74] bool __gnu_cxx::__is_null_pointer<char const>(char const*) [14] double const& std::min<double>(double const&, double const&)
+  [41] gast(double)           [44] std::_Function_base::_M_empty() const [11] __gnu_cxx::__promote_2<int, int, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type, __gnu_cxx::__promote<int, std::__is_integer<int>::__value>::__type>::__type std::pow<int, int>(int, int)
+  [37] gmst(double)            [3] std::function<void (double, double**, double**)>::operator()(double, double**, double**) const [52] void (*&&std::forward<void (*)(double, double**, double**)>(std::remove_reference<void (*)(double, double**, double**)>::type&))(double, double**, double**)
+  [22] mult(double**, int, int, double**, int, int, double**) [45] std::_Any_data::_M_access() const [23] double**&& std::forward<double**>(std::remove_reference<double**>::type&)
+  [26] norm(double*, int)     [46] void (* const&std::_Any_data::_M_access<void (*)(double, double**, double**)>() const)(double, double**, double**) [34] void (*&std::forward<void (*&)(double, double**, double**)>(std::remove_reference<void (*&)(double, double**, double**)>::type&))(double, double**, double**)
+   [9] Accel(double, double**, double**) [75] std::char_traits<char>::length(char const*) [25] double&& std::forward<double>(std::remove_reference<double>::type&)
+  [54] cross(double*, double*, double*) [57] std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_destroy(std::_Any_data&, std::integral_constant<bool, true>) [80] std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+  [71] mjday(int, int, int, int, int, double) [58] std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) [68] operator new(unsigned long, void*)
+  [29] mult3(double**, int, int, double**, int, int, double**, int, int, double**) [47] std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_get_pointer(std::_Any_data const&) [13] _init
+  [49] sign_(double, double)  [59] void std::_Function_base::_Base_manager<void (*)(double, double**, double**)>::_M_init_functor<void (*)(double, double**, double**)>(std::_Any_data&, void (*&&)(double, double**, double**))

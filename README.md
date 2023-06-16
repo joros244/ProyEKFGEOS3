@@ -26,3 +26,5 @@ Once compiled, you may run them using the following instruction:
 ```bash
 $ ./a.out
 ```
+#### Warning
+This project has been developed and tested under GCC version 13.1.1.

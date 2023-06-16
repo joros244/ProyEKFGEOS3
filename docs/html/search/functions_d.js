@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['timediff_0',['timediff',['../timediff_8h.html#af682e7300b67977f98743438a63dd532',1,'timediff(double UT1_UTC, double TAI_UTC, double &amp;UT1_TAI, double &amp;UTC_GPS, double &amp;UT1_GPS, double &amp;TT_UTC, double &amp;GPS_UTC):&#160;timediff.cpp'],['../timediff_8cpp.html#af682e7300b67977f98743438a63dd532',1,'timediff(double UT1_UTC, double TAI_UTC, double &amp;UT1_TAI, double &amp;UTC_GPS, double &amp;UT1_GPS, double &amp;TT_UTC, double &amp;GPS_UTC):&#160;timediff.cpp']]],
+  ['timeupdate_1',['TimeUpdate',['../_time_update_8h.html#aa1711f709e99bbf42769411283f03571',1,'TimeUpdate(double **P, int fp, int cp, double **Phi, int fphi, int cphi, double **Qdt=nullptr, int fq=0, int cq=0):&#160;TimeUpdate.cpp'],['../_time_update_8cpp.html#aa884ba717168399b2a9c41e0c26e492e',1,'TimeUpdate(double **P, int fp, int cp, double **Phi, int fphi, int cphi, double **Qdt, int fq, int cq):&#160;TimeUpdate.cpp']]],
+  ['transpose_2',['transpose',['../matrix_8h.html#a6935f724782e8d17282c7d5f6395e48c',1,'transpose(double **mat, double **res, int f, int c):&#160;matrix.cpp'],['../matrix_8cpp.html#a6935f724782e8d17282c7d5f6395e48c',1,'transpose(double **mat, double **res, int f, int c):&#160;matrix.cpp']]]
+];
